@@ -1,0 +1,17 @@
+.logoContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0px;
+    gap: 5px;
+
+}
+h1{
+    display: flex;
+    align-items: flex-end;
+    margin: 0px;
+}
+img{
+    width: 40px;
+    height: 40px;
+}

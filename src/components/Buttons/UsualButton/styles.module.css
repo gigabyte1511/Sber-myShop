@@ -1,0 +1,14 @@
+.button{
+    min-width: 50px;
+    max-width: 100px;
+    padding: 2px 10px 2px 10px;
+    background: #FFD159;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-radius: 10px; 
+}
+.button:hover{
+    background-color: aliceblue;
+}
+.button:active{
+    font-size: 10px;
+}

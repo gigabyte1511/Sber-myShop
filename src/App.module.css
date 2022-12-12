@@ -1,0 +1,14 @@
+.vrapper {
+  /* height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 1200px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
