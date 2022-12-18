@@ -1,38 +1,54 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Api from "../../../API/serverApi";
+import { signIn} from "../../../API/query";
+// import Api from "../../../API/serverApi";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
+const SINGIN_QUERY_KEY = "SINGIN_QUERY_KEY";
+
 function SignIn () {
     const navigate = useNavigate();
-    const [error, setError] = useState('');
-    //Попытка выполнить авторизацию
+    
+    const {isSuccess, isError, mutate, data, error} = useMutation({
+        queryKey: [SINGIN_QUERY_KEY], 
+        mutationFn: signIn,
+    })
     const trySingIn = () =>{
-        const params = {
+        mutate({
             email: document.getElementById("login").value,
-            password: document.getElementById("password").value
-            
-        }
-        const api = new Api(params);
-        api.signIn(params)
-        .then((response) => {
-              console.log(response);
-              navigate("/main");
+            password: document.getElementById("password").value,
         })
-        .catch((e) => {
-            setError(e.message);
-        })
+    }
+
+    if(isSuccess){
+        console.log("Success");
+        console.log(data)
+        localStorage.setItem("token", data.token);
+        navigate("/main");
+    }
+
+    if(isError){
+        console.log("Error");
+        console.log(error.message);
+        return(
+            <div className={styles.container}>
+                <h3 className = {styles.header}>Autorisation</h3>
+                <input id="login" placeholder = "Email"></input>
+                <input id="password"placeholder = "Password"></input>
+                <UsualButton text = "Send" do = { trySingIn }/>
+                <p className={styles.errorMessage}>{error.message}</p>
+            </div> 
+        )
     }
 
     return (
             <div className={styles.container}>
-                        <h3 className = {styles.header}>Autorisation</h3>
-                        <input id="login" placeholder = "Email"></input>
-                        <input id="password"placeholder = "Password"></input>
-                        <UsualButton text = "Send" do = { trySingIn }/>
-                        <p className={styles.errorMessage}>{error}</p>
-
+                <h3 className = {styles.header}>Autorisation</h3>
+                <input id="login" placeholder = "Email"></input>
+                <input id="password"placeholder = "Password"></input>
+                <UsualButton text = "Send" do = { trySingIn }/>
             </div>   
     )
 }

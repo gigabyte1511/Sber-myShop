@@ -1,37 +1,60 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signUp } from "../../../API/query";
 import Api from "../../../API/serverApi";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
+const SINGUP_QUERY_KEY = "SINGUP_QUERY_KEY";
+
 function SignUp () {
     const navigate = useNavigate();
-    const [error, setError] = useState('');
+
+    const mutation = useMutation({
+        queryKey: [SINGUP_QUERY_KEY], 
+        mutationFn: signUp,
+    })
+
     //Попытка выполнить регистрацию
+    // const trySingUp = () =>{
+    //     const params = {
+    //         email: document.getElementById("login").value,
+    //         password: document.getElementById("password").value,
+    //         group: document.getElementById("group").value
+            
+    //     }
+    //     const api = new Api(params);
+    //     api.signUp(params)
+    //     .then((response) => {
+    //         //Попытка выполнить авторизацию
+    //         const api2 = new Api(params);
+    //         api2.signIn(params)
+    //         .then((response) => {
+    //               navigate("/main");
+    //         })
+    //         .catch((e) => {
+    //             setError(e.message);
+    //         })
+    //     })
+    //     .catch((e) => {
+    //         setError(e.message);
+    //     })
+    // }
+
+    if(mutation.isSuccess){
+        console.log(mutation.data);
+        // navigate("/main");
+    }
+
     const trySingUp = () =>{
-        const params = {
+        mutation.mutate({
             email: document.getElementById("login").value,
             password: document.getElementById("password").value,
             group: document.getElementById("group").value
-            
-        }
-        const api = new Api(params);
-        api.signUp(params)
-        .then((response) => {
-            //Попытка выполнить авторизацию
-            const api2 = new Api(params);
-            api2.signIn(params)
-            .then((response) => {
-                  navigate("/main");
-            })
-            .catch((e) => {
-                setError(e.message);
-            })
-        })
-        .catch((e) => {
-            setError(e.message);
-        })
+          })
     }
+    
 
     return (
             <div className={styles.container}>
@@ -40,7 +63,7 @@ function SignUp () {
                         <input id="password" placeholder="Password"></input>
                         <input id="group" placeholder="Group"></input>
                         <UsualButton text = "Send" do = { trySingUp } />
-                        <p className={styles.errorMessage}>{error}</p>
+                        {/* <p className={styles.errorMessage}>{error}</p> */}
             </div>   
     )
 }

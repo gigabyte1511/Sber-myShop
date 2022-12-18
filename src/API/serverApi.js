@@ -59,6 +59,19 @@
         const responseObj = await response.json();
         return responseObj;
     }
+
+    getProguctsTest(){
+        const func = () => {fetch('https://api.react-learning.ru/products',{
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then((res)=>res.json())
+        }
+        return func;
+    }
+
     async getUserInfo(){
         //console.log(data);
         const response = await fetch('https://api.react-learning.ru/v2/sm8/users/me', {
