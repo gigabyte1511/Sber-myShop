@@ -4,7 +4,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './App.module.css';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
-import { Main } from './components/Main/Main';
 
 
 function App() {

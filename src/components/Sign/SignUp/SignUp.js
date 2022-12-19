@@ -1,8 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../../API/query";
-import Api from "../../../API/serverApi";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 

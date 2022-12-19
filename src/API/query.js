@@ -1,15 +1,21 @@
 
-export const getProducts = (params) => {
-    console.log(params);
-    const test = fetch('https://api.react-learning.ru/products',{
+export const getProducts = (params) => fetch('https://api.react-learning.ru/products',{
     method: 'GET',
     headers: {
         authorization: `Bearer ${localStorage.getItem('token')}`
     }
 })
-.then((res)=>res.json());
-return test;
-}
+.then((res)=> {
+    if(res.status !== 200){
+        return res.json().then((data) => {
+            throw new Error(data.message)
+        });
+    }
+    return res.json();
+})
+.then((data)=> {
+    return data;
+})
 
 
 export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
@@ -69,5 +75,20 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
         return data;
     })
 
-    
-
+    export const getUserInfo = () => fetch('https://api.react-learning.ru/v2/sm8/users/me',{
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then((res)=> {
+        if(res.status !== 200){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })
