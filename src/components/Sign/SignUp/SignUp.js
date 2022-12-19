@@ -11,51 +11,37 @@ const SINGUP_QUERY_KEY = "SINGUP_QUERY_KEY";
 function SignUp () {
     const navigate = useNavigate();
 
-    const mutation = useMutation({
+    const {isSuccess, isError, mutate, data, error} = useMutation({
         queryKey: [SINGUP_QUERY_KEY], 
         mutationFn: signUp,
     })
 
-    //Попытка выполнить регистрацию
-    // const trySingUp = () =>{
-    //     const params = {
-    //         email: document.getElementById("login").value,
-    //         password: document.getElementById("password").value,
-    //         group: document.getElementById("group").value
-            
-    //     }
-    //     const api = new Api(params);
-    //     api.signUp(params)
-    //     .then((response) => {
-    //         //Попытка выполнить авторизацию
-    //         const api2 = new Api(params);
-    //         api2.signIn(params)
-    //         .then((response) => {
-    //               navigate("/main");
-    //         })
-    //         .catch((e) => {
-    //             setError(e.message);
-    //         })
-    //     })
-    //     .catch((e) => {
-    //         setError(e.message);
-    //     })
-    // }
-
-    if(mutation.isSuccess){
-        console.log(mutation.data);
-        // navigate("/main");
-    }
-
     const trySingUp = () =>{
-        mutation.mutate({
+        mutate({
             email: document.getElementById("login").value,
             password: document.getElementById("password").value,
             group: document.getElementById("group").value
           })
     }
-    
 
+    if(isSuccess){
+        localStorage.setItem("token", data.token);
+        navigate("/main");
+    }
+    if(isError){
+        return (
+            <div className={styles.container}>
+                        <h3 className={styles.header}>Registration</h3>
+                        <input id="login" placeholder="Email"></input>
+                        <input id="password" placeholder="Password"></input>
+                        <input id="group" placeholder="Group"></input>
+                        <UsualButton text = "Send" do = { trySingUp } />
+                        <p className={styles.errorMessage}>{error.message}</p>
+            </div>   
+    )
+    }
+
+    
     return (
             <div className={styles.container}>
                         <h3 className={styles.header}>Registration</h3>
@@ -63,7 +49,6 @@ function SignUp () {
                         <input id="password" placeholder="Password"></input>
                         <input id="group" placeholder="Group"></input>
                         <UsualButton text = "Send" do = { trySingUp } />
-                        {/* <p className={styles.errorMessage}>{error}</p> */}
             </div>   
     )
 }

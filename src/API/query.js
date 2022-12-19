@@ -11,19 +11,6 @@ export const getProducts = (params) => {
 return test;
 }
 
-export const signUp = (data) => {
-    console.log(`Params in signUp:`)
-    console.log(data)
-    const test = fetch('https://api.react-learning.ru/signup', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(data),
-    })
-    .then((res)=> res.json())
-    return test;
-}
 
 export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
         method: 'POST',
@@ -44,4 +31,43 @@ export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
         return data;
     })
 
+export const signUp = (userData) => fetch('https://api.react-learning.ru/signup',{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(userData),
+    })
+    .then((res)=> {
+        if(res.status !== 201){
+            return res.json().then((data) => {
+                // console.log(userData);
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then(()=> fetch('https://api.react-learning.ru/signin',{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            email: userData.email,
+            password: userData.password,
+        })
+    }))
+    .then((res)=> {
+        if(res.status !== 200){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })
+
+    
 
