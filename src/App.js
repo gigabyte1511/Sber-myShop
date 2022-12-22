@@ -21,7 +21,6 @@ function App() {
     return (
       <div className={styles.vrapper}>
         <Header />
-        {/* <Main /> */}
         <Outlet />
         <Footer />
       </div>
