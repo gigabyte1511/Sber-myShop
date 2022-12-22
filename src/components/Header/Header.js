@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HeaderNavigation } from "../HeaderNavigation/HeaderNavigation"
 import { Logo } from "../Logo/Logo"
@@ -6,12 +7,14 @@ import styles from "./styles.module.css"
 
 function Header (){
     const navigate = useNavigate();
-    //Проверка на наличие токена и выполнение отображения компонента с товарами
+    
+    // Проверка на наличие токена и выполнение отображения компонента с товарами
     const isToken = () =>{
         if (localStorage.getItem("token")){
             navigate("/main")
         }
     }
+
     return(
         <header>
             <div onClick={()=>{isToken()}}>
@@ -20,7 +23,6 @@ function Header (){
             </div>
             <SearchBar />
             <HeaderNavigation />
-
         </header>
     )
 }

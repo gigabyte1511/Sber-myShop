@@ -31,7 +31,7 @@ function SignUp () {
             <div className={styles.container}>
                         <h3 className={styles.header}>Registration</h3>
                         <input id="login" placeholder="Email"></input>
-                        <input id="password" placeholder="Password"></input>
+                        <input id="password" placeholder="Password" type='password'></input>
                         <input id="group" placeholder="Group"></input>
                         <UsualButton text = "Send" do = { trySingUp } />
                         <p className={styles.errorMessage}>{error.message}</p>
@@ -44,7 +44,7 @@ function SignUp () {
             <div className={styles.container}>
                         <h3 className={styles.header}>Registration</h3>
                         <input id="login" placeholder="Email"></input>
-                        <input id="password" placeholder="Password"></input>
+                        <input id="password" placeholder="Password" type='password'></input>
                         <input id="group" placeholder="Group"></input>
                         <UsualButton text = "Send" do = { trySingUp } />
             </div>   

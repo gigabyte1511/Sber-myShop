@@ -1,4 +1,4 @@
-
+// Метод получения всех продуктов
 export const getProducts = (params) => fetch('https://api.react-learning.ru/products',{
     method: 'GET',
     headers: {
@@ -17,7 +17,7 @@ export const getProducts = (params) => fetch('https://api.react-learning.ru/prod
     return data;
 })
 
-
+// Метод авторизации пользователя
 export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
         method: 'POST',
         headers: {
@@ -36,7 +36,7 @@ export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
     .then((data)=> {
         return data;
     })
-
+// Метод регистрации нового пользователя с автоматической авторизации в случае успеха
 export const signUp = (userData) => fetch('https://api.react-learning.ru/signup',{
         method: 'POST',
         headers: {
@@ -47,7 +47,6 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     .then((res)=> {
         if(res.status !== 201){
             return res.json().then((data) => {
-                // console.log(userData);
                 throw new Error(data.message)
             });
         }
@@ -74,7 +73,7 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     .then((data)=> {
         return data;
     })
-
+// Метод получения детальной информации пользователя
     export const getUserInfo = () => fetch('https://api.react-learning.ru/v2/sm8/users/me',{
         method: 'GET',
         headers: {

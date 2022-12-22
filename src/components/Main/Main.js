@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts} from "../../API/query";
 import Loader from "../Loader/Loader";
 import { Product } from "../Product/Product"
-import styles from "./styles.module.css"
-//import styles from './styles.module.css'
 
 export const PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
 
