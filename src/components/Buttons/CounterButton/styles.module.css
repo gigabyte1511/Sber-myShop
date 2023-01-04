@@ -1,0 +1,31 @@
+.container{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+}
+.left{
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    padding: 5px;
+    width: 20px;
+    background-color: red;
+    opacity: 0.7;
+}
+.left:hover{
+    opacity: 1;
+}
+.right{
+    border-radius: 0px 5px 5px 0px;
+    border: none;
+    padding: 5px;
+    width: 20px;
+    background-color: green;
+    opacity: 0.7;
+}
+.right:hover{
+    opacity: 1;
+}
+.text{
+    margin: 5px;
+}

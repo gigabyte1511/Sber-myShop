@@ -5,11 +5,11 @@ import { Product } from "../Product/Product"
 import styles from './styles.module.css'
 
 
-export const PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
+export const GET_PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
 
 function Main(){
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
-        queryKey: [PRODUCTS_QUERY_KEY], 
+        queryKey: [GET_PRODUCTS_QUERY_KEY], 
         queryFn: getProducts
     }); 
 

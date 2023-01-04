@@ -7,6 +7,10 @@ import { Main } from './components/Main/Main';
 import { Sign } from './components/Sign/Sign';
 import { UserInfo } from './components/UserInfo/UserInfo';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Cart } from './components/Cart/Cart';
+import { Provider } from 'react-redux'
+import { store } from './redux/store';
+
 /*  
   22/12/2022
     Что нового?
@@ -52,6 +56,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
       Все взаимодействие сервером определено в файлу query.js.
   ---------------------------------------------------------------------
     Спасибо(Рахмет)!
+
 */
 
 const queryClient = new QueryClient()
@@ -73,6 +78,10 @@ const router = createBrowserRouter([
         path: "userInfo",
         element: <UserInfo />,
       },
+      {
+        path: "Cart",
+        element: <Cart />,
+      },
     ],
   },
 ]);
@@ -81,8 +90,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <QueryClientProvider client = {queryClient}>
       <RouterProvider router={router} />
     </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );
