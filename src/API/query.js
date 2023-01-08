@@ -18,7 +18,9 @@ export const getProducts = (params) => fetch('https://api.react-learning.ru/prod
 })
 
 // Метод получения продуктов по массиву ID
-export const getProductsByIds = (idMass) => Promise.all(idMass.map(id => fetch(`https://api.react-learning.ru/products/${id}`,{
+export const getProductsByIds = ({ queryKey }) => {
+    const [_key, idMass] = queryKey;
+    return Promise.all(idMass.map(id => fetch(`https://api.react-learning.ru/products/${id}`,{
     method: 'GET',
     headers: {
         authorization: `Bearer ${localStorage.getItem('token')}`
@@ -35,9 +37,8 @@ export const getProductsByIds = (idMass) => Promise.all(idMass.map(id => fetch(`
     }))
 })
 .then((dataMass)=> {
-    //console.log(dataMass);
     return dataMass;
-})
+})}
 
 
 
@@ -119,3 +120,4 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
         return data;
     })
     
+    export const test123 = ({ queryKey }) => console.log(queryKey)

@@ -8,39 +8,44 @@ function Product({params}){
 
     let $price = <p className>{params.price}</p>;
     let $discountPrice;
+    const actualPrice = params.price - params.price * (params.discount / 100)
+
+        //Расчет цены с учетом скидки
+    if (params.discount !== 0){
+        $discountPrice = <p className = {styles.discountPrice}>{params.price - params.price * (params.discount / 100)}</p>;
+        $price = <p className = {styles.deletePrice}>{params.price}</p>;
+    }
 
     const addToCart = () => {
-        dispatch(addToCartAC({id: params._id, count: 1,}));
+        dispatch(addToCartAC({id: params._id, count: 1, price: params.price, actualPrice, stock: params.stock}));
     }
 
     const deleteFromCart = () => {
         dispatch(deleteFromCartAC({id: params._id}));
     }
 
-    let $button = <UsualButton do = { addToCart }  text="Add to Cart" />;
+    let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;
     const idsInCart = cart.map((product) => product.id);
 
     if(idsInCart.includes(params._id)){
-        console.log("Included");
-        $button = <UsualButton do = { deleteFromCart } style = {{backgroundColor: 'red'}} text="Remove from Cart" />
+        // style = {{backgroundColor: 'red'}} 
+        $cartButton = <UsualButton do = { deleteFromCart } text="Remove from Cart" />
 
     }
 
-    //Расчет цены с учетом скидки
-    if (params.discount !== 0){
-        $discountPrice = <p className = {styles.discountPrice}>{params.price - params.price * (params.discount / 100)}</p>;
-        $price = <p className = {styles.deletePrice}>{params.price}</p>;
-    }
     return (
     <div className={styles.container}>
-            <img src={params.pictures} className={styles.imageContainer} alt = "123"></img>
-        <div className={styles.ParametersField}>
-            {$price}
-            {$discountPrice}
+        <img src={params.pictures} className={styles.imageContainer} alt = "123"></img>
+        <div>
+            <div className={styles.priceField}>
+                {$price}
+                {$discountPrice}
+            </div>
             <p>{params.name}</p>
+            <p>{params.stock} pс</p>
         </div>
         <div className={styles.buttonContainer}>
-            {$button}
+            {$cartButton}
         </div>
     </div>
     )
