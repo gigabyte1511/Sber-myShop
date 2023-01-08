@@ -42,7 +42,7 @@ function Product({params}){
                 {$discountPrice}
             </div>
             <p>{params.name}</p>
-            <p>{params.stock} pс</p>
+            <p>Available: {params.stock} pс.</p>
         </div>
         <div className={styles.buttonContainer}>
             {$cartButton}

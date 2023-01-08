@@ -40,9 +40,27 @@ export const getProductsByIds = ({ queryKey }) => {
     return dataMass;
 })}
 
-
-
-
+// Метод получения продуктов по слову
+export const getProductsByWord = ({ queryKey }) => {
+    const [_key, word] = queryKey;
+    return fetch(`https://api.react-learning.ru/products/search?query=${word}`,{
+    method: 'GET',
+    headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+})
+.then((res)=> {
+    if(res.status !== 200){
+        return res.json().then((data) => {
+            throw new Error(data.message)
+        });
+    }
+    return res.json();
+})
+.then((data)=> {
+    return data;
+})
+}
 
 // Метод авторизации пользователя
 export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
@@ -101,6 +119,7 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     .then((data)=> {
         return data;
     })
+    
 // Метод получения детальной информации пользователя
     export const getUserInfo = () => fetch('https://api.react-learning.ru/v2/sm8/users/me',{
         method: 'GET',
