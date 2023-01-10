@@ -5,6 +5,7 @@
     align-items: flex-start;
     padding: 0px;
     gap: 10px;
+    cursor: pointer;
 }
 .img{
     padding: 5px;
