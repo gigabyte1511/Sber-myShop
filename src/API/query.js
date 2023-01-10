@@ -40,7 +40,7 @@ export const getProductsByIds = ({ queryKey }) => {
     return dataMass;
 })}
 
-// Метод получения продуктов по слову
+// Метод получения продуктов по ключу
 export const getProductsByWord = ({ queryKey }) => {
     const [_key, word] = queryKey;
     return fetch(`https://api.react-learning.ru/products/search?query=${word}`,{
@@ -119,7 +119,7 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     .then((data)=> {
         return data;
     })
-    
+
 // Метод получения детальной информации пользователя
     export const getUserInfo = () => fetch('https://api.react-learning.ru/v2/sm8/users/me',{
         method: 'GET',
@@ -138,5 +138,3 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     .then((data)=> {
         return data;
     })
-    
-    export const test123 = ({ queryKey }) => console.log(queryKey)

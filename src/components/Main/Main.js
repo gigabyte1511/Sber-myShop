@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import { getProducts, getProductsByWord} from "../../API/query";
+import { getProductsByWord} from "../../API/query";
 import Loader from "../Loader/Loader";
 import { Product } from "../Product/Product"
 import styles from './styles.module.css'
