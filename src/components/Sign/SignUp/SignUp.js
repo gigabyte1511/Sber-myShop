@@ -1,8 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../../API/query";
-import { Context } from "../../../contexts/groupeContext";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
@@ -10,7 +8,6 @@ const SINGUP_QUERY_KEY = "SINGUP_QUERY_KEY";
 
 function SignUp () {
     const navigate = useNavigate();
-    const {userGroupe, setUserGroupe} = useContext(Context);
 
     const {isSuccess, isError, mutate, data, error} = useMutation({
         queryKey: [SINGUP_QUERY_KEY], 
@@ -27,7 +24,8 @@ function SignUp () {
 
     if(isSuccess){
         localStorage.setItem("token", data.token);
-        setUserGroupe(document.getElementById("group").value);
+        localStorage.setItem("token", data.data.group);
+
         navigate("/main");
     }
     if(isError){
