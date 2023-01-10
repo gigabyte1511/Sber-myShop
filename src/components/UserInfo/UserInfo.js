@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../API/query';
+import { Context } from '../../contexts/groupeContext';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton'
 import Loader from '../Loader/Loader';
 import styles from './styles.module.css'
@@ -9,6 +11,8 @@ const USERINFO_QUERY_KEY = "USERINFO_QUERY_KEY";
 
 function UserInfo(){
     const navigate = useNavigate();
+    const {userGroupe, setUserGroupe} = useContext(Context);
+
 
      //Функция выполнения выхода ползователя, удаление токена
     const SingOut = () =>{
@@ -17,7 +21,7 @@ function UserInfo(){
     }
 
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
-        queryKey: [USERINFO_QUERY_KEY], 
+        queryKey: [USERINFO_QUERY_KEY,userGroupe], 
         queryFn: getUserInfo
     }); 
 
