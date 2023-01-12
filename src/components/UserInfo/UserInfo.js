@@ -1,42 +1,50 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import Api from '../../API/serverApi';
+import { getUserInfo } from '../../API/query';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton'
+import Loader from '../Loader/Loader';
 import styles from './styles.module.css'
+
+const USERINFO_QUERY_KEY = "USERINFO_QUERY_KEY";
 
 function UserInfo(){
     const navigate = useNavigate();
-    const [userData, setUserData] = useState("");
-    //Функция выполнения выхода ползователя, удаление токена
+
+
+     //Функция выполнения выхода ползователя, удаление токена
     const SingOut = () =>{
         localStorage.removeItem("token");
         navigate("/sign");
     }
-    useEffect(() => {
-        //Попытка получить данные о пользователе с сервера
-        const api = new Api();
-        api.getUserInfo().then((response)=>{
-            setUserData(response);
-        });
-    });
-    return(
-        <div className={styles.container}>
+
+    const {data, error, isLoading, isSuccess, isError} = useQuery({ 
+        queryKey: [USERINFO_QUERY_KEY, localStorage.getItem("group"),], 
+        queryFn: getUserInfo
+    }); 
+
+    if(isLoading) return <Loader />
+    if(isError) return <p>{`${error}`}</p>
+    if(isSuccess) {
+        return (
+            <div className={styles.container}>
             <div className={styles.userIfo}>
                 <div className={styles.avatarContainer}>
-                    <img src={userData.avatar} className={styles.avatar} alt='123'></img>
+                    <img src={data.avatar} className={styles.avatar} alt='123'></img>
                     <UsualButton text = "Sing Out" do = {()=>{SingOut()}} />
                 </div>
                 <div className={styles.infoContainer}>
-                    <p>Name: {userData.name}</p>
-                    <p>About: {userData.about}</p>
-                    <p>ID: {userData._id}</p>
-                    <p>EMail: {userData.email}</p>
-                    <p>Group: {userData.group}</p>
+                    <p>Name: {data.name}</p>
+                    <p>About: {data.about}</p>
+                    <p>ID: {data._id}</p>
+                    <p>EMail: {data.email}</p>
+                    <p>Group: {data.group}</p>
                 </div>
             </div>
             <UsualButton text = "Close" do = {()=>{navigate("/main")}}/>
         </div>
-    )
+        );
+    }
+
 }
 export {
     UserInfo,
