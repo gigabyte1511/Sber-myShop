@@ -12,7 +12,8 @@ export function CartHeader(){
     const selectAll = () => {
         dispatch(selectAllCartAC());
     }
-
+    
+    //Вариации радиокнопки "Select All"
     let $radioSelect;
     if(cart
         .filter((product) => product.isSelected === false)

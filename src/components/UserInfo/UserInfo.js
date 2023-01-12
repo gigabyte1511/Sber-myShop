@@ -13,8 +13,8 @@ function UserInfo(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
-    
-     //Функция выполнения выхода ползователя, удаление токена
+
+     //Функция выполнения выхода пользователя, удаление токена
     const SingOut = () =>{
         localStorage.removeItem("token");
         dispatch(removeTokenAC());

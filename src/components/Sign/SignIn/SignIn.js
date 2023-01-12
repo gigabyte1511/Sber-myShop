@@ -24,8 +24,6 @@ function SignIn () {
     }
 
     if(isSuccess){
-        console.log("Success");
-        console.log(data)
         localStorage.setItem("token", data.token);
         localStorage.setItem("group", data.data.group);
         dispatch(addTokenAC(data.token));
@@ -34,8 +32,7 @@ function SignIn () {
     }
 
     if(isError){
-        console.log("Error");
-        console.log(error.message);
+        console.log("Error", error.message);
         return(
             <div className={styles.container}>
                 <h3 className = {styles.header}>Autorisation</h3>

@@ -5,25 +5,23 @@ import styles from "./styles.module.css"
 
 export function ProductInCart({params}){
     const cart = useSelector((store) => store.cart);
-    const [{count, isSelected}] = cart
+    const [{count, isSelected, actualPrice}] = cart
         .filter((product) => product.id === params._id)
 
     const dispatch = useDispatch();
-
+    //Увеличить count товара
     const increment = () => {
         dispatch(incrementCartAC({id: params._id}));
     }
+    //Уменьшить count товара
     const decrement = () => {
         dispatch(decrementCartAC({id: params._id}));
     }
+    //Изменение статуса товара
     const radioSelect = () => {
         if(isSelected){
             dispatch(unselectCartAC({id: params._id}));
         } else dispatch(selectCartAC({id: params._id}));
-    }
-    let actualPrice = params.price;
-    if (params.discount !== 0){
-        actualPrice = params.price - params.price * (params.discount / 100);
     }
     return(
         <>

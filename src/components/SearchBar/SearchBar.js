@@ -6,8 +6,10 @@ import styles from "./styles.module.css"
 function SearchBar(){
     const dispatch = useDispatch();
     const [input, setInput] = useState("");
+    //Кастомный хук оптимизации debounce
     const debounceValue = useDebounce(input, 500);
     dispatch(searchAC(debounceValue));
+
 
     return(
         <input 

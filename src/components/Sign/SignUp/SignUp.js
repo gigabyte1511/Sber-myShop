@@ -12,7 +12,6 @@ function SignUp () {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
     const {isSuccess, isError, mutate, data, error} = useMutation({
         queryKey: [SINGUP_QUERY_KEY], 
         mutationFn: signUp,
