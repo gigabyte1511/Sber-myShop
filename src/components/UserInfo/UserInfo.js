@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../API/query';
+import { removeTokenAC } from '../../redux/actionCreators/userAC';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton'
 import Loader from '../Loader/Loader';
 import styles from './styles.module.css'
@@ -9,15 +11,18 @@ const USERINFO_QUERY_KEY = "USERINFO_QUERY_KEY";
 
 function UserInfo(){
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
+    
      //Функция выполнения выхода ползователя, удаление токена
     const SingOut = () =>{
         localStorage.removeItem("token");
+        dispatch(removeTokenAC());
         navigate("/sign");
     }
 
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
-        queryKey: [USERINFO_QUERY_KEY], 
+        queryKey: [USERINFO_QUERY_KEY, user.group], 
         queryFn: getUserInfo
     }); 
 

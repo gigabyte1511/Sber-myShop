@@ -17,7 +17,7 @@ function Header (){
 
     return(
         <header>
-            <div onClick={()=>{isToken()}}>
+            <div style= {{cursor:"pointer"}} onClick={()=>{isToken()}}>
                 <Logo />
                 <h3 className={styles.label}>ONLINE PET FOOD STORE</h3>
             </div>

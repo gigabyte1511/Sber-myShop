@@ -121,7 +121,7 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     })
 
 // Метод получения детальной информации пользователя
-    export const getUserInfo = () => fetch('https://api.react-learning.ru/v2/sm8/users/me',{
+    export const getUserInfo = ({queryKey}) => fetch(`https://api.react-learning.ru/v2/${queryKey[1]}/users/me`,{
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('token')}`

@@ -1,6 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../../API/query";
+import { addTokenAC, addUserGroupAC } from "../../../redux/actionCreators/userAC";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
@@ -8,6 +10,8 @@ const SINGUP_QUERY_KEY = "SINGUP_QUERY_KEY";
 
 function SignUp () {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const {isSuccess, isError, mutate, data, error} = useMutation({
         queryKey: [SINGUP_QUERY_KEY], 
@@ -24,6 +28,9 @@ function SignUp () {
 
     if(isSuccess){
         localStorage.setItem("token", data.token);
+        localStorage.setIten("group", data.data.group);
+        dispatch(addTokenAC(data.token));
+        dispatch(addUserGroupAC(data.data.group));
         navigate("/main");
     }
     if(isError){

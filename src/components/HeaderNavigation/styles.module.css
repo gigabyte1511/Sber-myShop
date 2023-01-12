@@ -9,6 +9,7 @@
 .img{
     padding: 5px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .img:hover{
     background: #FFD159;
