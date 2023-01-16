@@ -14,10 +14,12 @@ function UserInfo(){
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
 
-     //Функция выполнения выхода пользователя, удаление токена
+    //Функция выполнения выхода ползователя, удаление токена
     const SingOut = () =>{
         localStorage.removeItem("token");
+        localStorage.removeItem("group");
         dispatch(removeTokenAC());
+        dispatch(removeUserGroupAC());
         navigate("/sign");
     }
 

@@ -22,9 +22,9 @@ function App() {
 
     return (
       <div className={styles.vrapper}>
-        <Header />
-        <Outlet />
-        <Footer />
+          <Header />
+          <Outlet />
+          <Footer />
       </div>
     );
 }
