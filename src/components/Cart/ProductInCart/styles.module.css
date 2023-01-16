@@ -1,0 +1,47 @@
+.container{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+.infoContainer{
+    display: flex;
+    flex-direction: row;
+    /* justify-content:space-around; */
+    align-items: center;
+    gap: 10px;
+}
+.propertiesContainer{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.propertiesContainer div p {
+    margin: 0px;
+    font-size: 15px;
+}
+.propertiesContainer p {
+    font-size: 12px;
+    margin: 0px;
+}
+.nameContainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.priceContainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.hr{
+    width: 90%;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    opacity: 0.6;
+}

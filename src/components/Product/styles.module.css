@@ -3,6 +3,7 @@
 flex-direction: column;
 /* align-items:center; */
 justify-content: space-between;
+align-items: center;
 padding: 10px;
 gap: 10px;
 
@@ -15,25 +16,23 @@ border-radius: 5px;
 
 }
 .imageContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-start;
-
     width: 126px;
     height: 90px;
     
     background: #E1E1E1;
 }
-.ParametersField{
+
+.priceField{
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-  
+    flex-direction: row;
+    justify-content: space-around;
+}
+.priceField p{
+    margin: 0px;
 }
 .deletePrice{
     text-decoration: line-through;
+    margin: 0px;
 }
 .discountPrice{
     color: red;
@@ -41,22 +40,5 @@ border-radius: 5px;
 }
 .buttonContainer{
     display: flex;
-    justify-content: center;
-    margin: 0;
-
-}
-.button{
-    
-    width: 70px;
-    height: 25px;
-    
-    background: #FFD159;
-    border: 1px solid rgba(0, 0, 0, 0.7);
-    border-radius: 10px; 
-}
-.buttonAdd{
-    border-radius: 5px 0px 0px 5px;
-}
-.buttonDetail{
-    border-radius: 0px 5px 5px 0px;
+    height: 35px
 }

@@ -1,6 +1,8 @@
 import { useMutation} from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn} from "../../../API/query";
+import { addTokenAC, addUserGroupAC } from "../../../redux/actionCreators/userAC";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
@@ -8,7 +10,7 @@ const SINGIN_QUERY_KEY = "SINGIN_QUERY_KEY";
 
 function SignIn () {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     
     const {isSuccess, isError, mutate, data, error} = useMutation({
         queryKey: [SINGIN_QUERY_KEY], 
@@ -23,13 +25,14 @@ function SignIn () {
 
     if(isSuccess){
         localStorage.setItem("token", data.token);
-        localStorage.setItem("token", data.data.group);
+        localStorage.setItem("group", data.data.group);
+        dispatch(addTokenAC(data.token));
+        dispatch(addUserGroupAC(data.data.group));
         navigate("/main");
     }
 
     if(isError){
-        console.log("Error");
-        console.log(error.message);
+        console.log("Error", error.message);
         return(
             <div className={styles.container}>
                 <h3 className = {styles.header}>Autorisation</h3>

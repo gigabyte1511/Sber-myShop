@@ -10,8 +10,23 @@
 .img{
     padding: 5px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .img:hover{
     background: #FFD159;
 
+}
+.cardContainer{
+    position: relative;
+}
+.counter{
+    background-color: rgba(255, 40, 40, 0.782);
+    border-radius: 10px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    right: -9px;
+    position: absolute;
+    z-index: 1;
 }
