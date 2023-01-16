@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../API/query';
-import { removeTokenAC } from '../../redux/actionCreators/userAC';
+import { removeToken, removeUserGroup } from '../../redux/slices/userSlices';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton'
 import Loader from '../Loader/Loader';
 import styles from './styles.module.css'
@@ -18,8 +18,8 @@ function UserInfo(){
     const SingOut = () =>{
         localStorage.removeItem("token");
         localStorage.removeItem("group");
-        dispatch(removeTokenAC());
-        dispatch(removeUserGroupAC());
+        dispatch(removeToken());
+        dispatch(removeUserGroup());
         navigate("/sign");
     }
 

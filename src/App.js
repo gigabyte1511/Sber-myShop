@@ -9,7 +9,6 @@ function App() {
   
   const navigate = useNavigate();
   const token = useSelector((store) => store.user.token);
-
   useEffect(() => {
     //Проверка на наличие токена:
     //  Есть - выполнение отображения компонента с товарами

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCartAC, deleteFromCartAC } from '../../redux/actionCreators/cartAC';
+import { cartAdd, cartDelete } from '../../redux/slices/cartSlices';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
 import styles from './styles.module.css'
 function Product({params}){
@@ -17,11 +17,11 @@ function Product({params}){
     }
 
     const addToCart = () => {
-        dispatch(addToCartAC({id: params._id, count: 1, price: params.price, actualPrice, stock: params.stock}));
+        dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, stock: params.stock}));
     }
 
     const deleteFromCart = () => {
-        dispatch(deleteFromCartAC({id: params._id}));
+        dispatch(cartDelete({id: params._id}));
     }
 
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;

@@ -1,27 +1,15 @@
-import { createStore } from 'redux'
-import { rootReducer } from './reducers/rootReducer';
+import { configureStore } from '@reduxjs/toolkit'
+import { cartReducer } from './slices/cartSlices';
+import { searchReducer } from './slices/searchSlices';
+import { userReducer } from './slices/userSlices';
 
-
-let initialState = {
-    cart: [],
-    search: "",
-    user:{
-        group: "",
-        token: "",
-    } 
-};
-if(localStorage.getItem("cart") !== null) {
-    initialState.cart = JSON.parse(localStorage.getItem("cart"));
-}
-if(localStorage.getItem("token") !== null) {
-    initialState.user.token = localStorage.getItem("token");
-}
-if(localStorage.getItem("group") !== null) {
-    initialState.user.group = localStorage.getItem("group");
-}
-
-export const store = createStore(rootReducer, initialState);
-
+export const store = configureStore({
+    reducer: {
+        cart: cartReducer,
+        search: searchReducer,
+        user: userReducer,
+    }
+})
 store.subscribe(() => {
     localStorage.setItem('cart', JSON.stringify(store.getState().cart));
   });

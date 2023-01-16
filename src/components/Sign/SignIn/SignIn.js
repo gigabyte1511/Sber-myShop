@@ -2,7 +2,7 @@ import { useMutation} from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn} from "../../../API/query";
-import { addTokenAC, addUserGroupAC } from "../../../redux/actionCreators/userAC";
+import { setToken, setUserGroup } from "../../../redux/slices/userSlices";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
@@ -26,8 +26,8 @@ function SignIn () {
     if(isSuccess){
         localStorage.setItem("token", data.token);
         localStorage.setItem("group", data.data.group);
-        dispatch(addTokenAC(data.token));
-        dispatch(addUserGroupAC(data.data.group));
+        dispatch(setToken(data.token));
+        dispatch(setUserGroup(data.data.group));
         navigate("/main");
     }
 
