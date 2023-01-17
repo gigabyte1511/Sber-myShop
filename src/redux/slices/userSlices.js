@@ -3,7 +3,7 @@ import { getInitialState } from "../initialStore";
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: { group: getInitialState().group, token: getInitialState().token },
+    initialState: { group: getInitialState().user.group, token: getInitialState().user.token },
     reducers: {
         setToken: (state, action) => ({...state, token: action.payload}),
         removeToken: (state, action) => ({...state, token: ""}),
@@ -11,7 +11,6 @@ const userSlice = createSlice({
         removeUserGroup: (state, action) => ({...state, group: ""})
     },
   });
-
   export const { setToken, removeToken, setUserGroup, removeUserGroup } = userSlice.actions;
   export const userReducer = userSlice.reducer;
 
