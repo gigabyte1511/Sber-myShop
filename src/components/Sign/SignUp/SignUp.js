@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../../API/query";
-import { addTokenAC, addUserGroupAC } from "../../../redux/actionCreators/userAC";
+import { setToken, setUserGroup } from "../../../redux/slices/userSlices";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllCartAC, unselectAllCartAC } from "../../../redux/actionCreators/cartAC";
+import { cartSelectAll, cartUnseceletectAll } from "../../../redux/slices/cartSlices";
+
 import styles from "./styles.module.css"
 
 export function CartHeader(){
@@ -7,10 +8,10 @@ export function CartHeader(){
 
     const dispatch = useDispatch();
     const unselectAll = () => {
-        dispatch(unselectAllCartAC());
+        dispatch(cartUnseceletectAll());
     }
     const selectAll = () => {
-        dispatch(selectAllCartAC());
+        dispatch(cartSelectAll());
     }
     
     //Вариации радиокнопки "Select All"

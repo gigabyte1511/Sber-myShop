@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { decrementCartAC, incrementCartAC, selectCartAC, unselectCartAC } from "../../../redux/actionCreators/cartAC";
+import { cartCounterDecrement, cartCounterIncrement, cartSelect, cartUnselect } from "../../../redux/slices/cartSlices";
 import { CounterButton } from "../../Buttons/CounterButton/CounterButton"
 import styles from "./styles.module.css"
 
@@ -11,17 +11,17 @@ export function ProductInCart({params}){
     const dispatch = useDispatch();
     //Увеличить count товара
     const increment = () => {
-        dispatch(incrementCartAC({id: params._id}));
+        dispatch(cartCounterIncrement({id: params._id}));
     }
     //Уменьшить count товара
     const decrement = () => {
-        dispatch(decrementCartAC({id: params._id}));
+        dispatch(cartCounterDecrement({id: params._id}));
     }
     //Изменение статуса товара
     const radioSelect = () => {
         if(isSelected){
-            dispatch(unselectCartAC({id: params._id}));
-        } else dispatch(selectCartAC({id: params._id}));
+            dispatch(cartUnselect({id: params._id}));
+        } else dispatch(cartSelect({id: params._id}));
     }
     return(
         <>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch} from "react-redux";
-import { searchAC } from "../../redux/actionCreators/searchAC";
+import { setSearch } from "../../redux/slices/searchSlices";
 import { useDebounce } from "../Cart/CustomHooks/useDebounce";
 import styles from "./styles.module.css"
 function SearchBar(){
@@ -8,7 +8,7 @@ function SearchBar(){
     const [input, setInput] = useState("");
     //Кастомный хук оптимизации debounce
     const debounceValue = useDebounce(input, 500);
-    dispatch(searchAC(debounceValue));
+    dispatch(setSearch(debounceValue));
 
 
     return(
