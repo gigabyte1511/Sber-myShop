@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../API/query';
-import { removeTokenAC } from '../../redux/actionCreators/userAC';
+import { removeTokenAC, removeUserGroupAC } from '../../redux/actionCreators/userAC';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton'
 import Loader from '../Loader/Loader';
 import styles from './styles.module.css'
@@ -28,8 +28,19 @@ function UserInfo(){
         queryFn: getUserInfo
     }); 
 
+    function prepareToSignIn(){
+        localStorage.removeItem("group");
+        localStorage.removeItem("token");
+        navigate("/sign");
+    }
+
     if(isLoading) return <Loader />
-    if(isError) return <p>{`${error}`}</p>
+    if(isError) return (
+        <>
+            <p>{`${error}`}</p>
+            <UsualButton text = {"Sing In"} do = {prepareToSignIn} />
+        </>
+    )
     if(isSuccess) {
         return (
             <div className={styles.container}>
