@@ -2,6 +2,7 @@
 export function getInitialState(){
     let initialState = {
         cart: [],
+        favourite: [],
         search: "",
         user:{
             group: "",
