@@ -22,6 +22,7 @@ function Main(){
     function prepareToSignIn(){
         localStorage.removeItem("group");
         localStorage.removeItem("token");
+        localStorage.removeItem("cart");
         navigate("/sign");
 
     }

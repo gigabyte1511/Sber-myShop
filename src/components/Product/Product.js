@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { cartAdd, cartDelete } from '../../redux/slices/cartSlices';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
-import styles from './styles.module.css'
+import styles from './styles.module.css';
+
 function Product({params}){
     const dispatch = useDispatch();
     const cart = useSelector((store) => store.cart);
@@ -17,7 +18,7 @@ function Product({params}){
     }
 
     const addToCart = () => {
-        dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, stock: params.stock}));
+        dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, isSelected: true, stock: params.stock}));
     }
 
     const deleteFromCart = () => {
@@ -28,7 +29,6 @@ function Product({params}){
     const idsInCart = cart.map((product) => product.id);
 
     if(idsInCart.includes(params._id)){
-        // style = {{backgroundColor: 'red'}} 
         $cartButton = <UsualButton do = { deleteFromCart } text="Remove from Cart" />
 
     }
@@ -36,14 +36,16 @@ function Product({params}){
     return (
     <div className={styles.container}>
         <img src={params.pictures} className={styles.imageContainer} alt = "123"></img>
+        <hr className={styles.hr}></hr>
         <div>
             <div className={styles.priceField}>
                 {$price}
                 {$discountPrice}
             </div>
             <p>{params.name}</p>
-            <p>Available: {params.stock} pс.</p>
+            <p className = {styles.available} >Available: {params.stock} pс.</p>
         </div>
+        
         <div className={styles.buttonContainer}>
             {$cartButton}
         </div>
