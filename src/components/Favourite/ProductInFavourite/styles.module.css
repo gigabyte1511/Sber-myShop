@@ -1,8 +1,24 @@
 .container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-column-gap: 1em;
-    grid-row-gap: 1em;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+}
+.imageContainer{
+    height: 100px;
+}
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.infoContainer h1{
+    font-size: 20px;
+}
+.infoContainer p{
+    margin: 0;
+}
+.priceContainer{
+    display: flex;
+    gap: 5px;
 }

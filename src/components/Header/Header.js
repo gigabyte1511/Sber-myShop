@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { HeaderNavigation } from "../HeaderNavigation/HeaderNavigation"
 import { Logo } from "../Logo/Logo"
@@ -7,10 +7,12 @@ import styles from "./styles.module.css"
 
 function Header (){
     const navigate = useNavigate();
+    const token = useSelector((store) => store.user.token);
+
     
     // Проверка на наличие токена и выполнение отображения компонента с товарами
     const isToken = () =>{
-        if (localStorage.getItem("token")){
+        if (token){
             navigate("/main")
         }
     }

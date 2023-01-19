@@ -13,8 +13,10 @@ export const GET_PRODUCTS_BY_ID_QUERY_KEY ='GET_PRODUCTS_BY_ID_QUERY_KEY';
 
 export function Cart(){
     const cart = useSelector((store) => store.cart);
+    const user = useSelector((store) => store.user);
+
     const {data, error, isLoading, isSuccess, isError, } = useQuery({ 
-        queryKey: [GET_PRODUCTS_BY_ID_QUERY_KEY, cart.map((cartItem) => cartItem.id)], 
+        queryKey: [GET_PRODUCTS_BY_ID_QUERY_KEY, cart.map((cartItem) => cartItem.id), user.token], 
         queryFn: getProductsByIds
     }); 
 

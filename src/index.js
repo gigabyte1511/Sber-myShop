@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Cart } from './components/Cart/Cart';
 import { Provider } from 'react-redux'
 import { store } from './redux/store';
+import { Favourite } from './components/Favourite/Favourite';
 
 /*  
   12/01/2023
@@ -53,8 +54,12 @@ const router = createBrowserRouter([
         element: <UserInfo />,
       },
       {
-        path: "Cart",
+        path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "favourite",
+        element: <Favourite />,
       },
     ],
   },

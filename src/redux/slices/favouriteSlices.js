@@ -7,7 +7,7 @@ const favouriteSlice = createSlice({
     initialState: getInitialState().favourite,
     reducers: {
         favouriteAdd: (state, action) => [ action.payload, ...state ],
-        favouriteDelete: (state, action) => state.filter((elem)=> elem.id !== action.payload.id),
+        favouriteDelete: (state, action) => state.filter((elem)=> elem !== action.payload),
     },
   })
 

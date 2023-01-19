@@ -26,8 +26,6 @@ function SignUp () {
     }
 
     if(isSuccess){
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("group", data.data.group);
         dispatch(setToken(data.token));
         dispatch(setUserGroup(data.data.group));
         navigate("/main");

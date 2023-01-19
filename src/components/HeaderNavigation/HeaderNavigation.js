@@ -7,25 +7,31 @@ import { useSelector } from "react-redux";
 function HeaderNavigation(){
     const navigate = useNavigate();
     const cart = useSelector((store) => store.cart);
+    const token = useSelector((store) => store.user.token);
     let $counter = <div className={styles.counter}>{cart.length}</div>
     if (cart.length === 0) $counter = '';
     //Проверка на наличие токена:
     //  Есть - выполнение отображения компонента с товарами
     const goPerson = () =>{
-        if (localStorage.getItem("token")){
+        if (token){
             navigate("/userInfo")
         }
     }
     const goCart= () =>{
-        if (localStorage.getItem("token")){
+        if (token){
             navigate("/cart")
+        }
+    }
+    const goFavourite= () =>{
+        if (token){
+            navigate("/favourite")
         }
     }
 
  return(
     <div className={styles.imgContainer}>
-        <img className={styles.img} src={favouritePic} alt = ""></img>
-        <div className={styles.cardContainer}>
+        <img className={styles.img} src={favouritePic} alt = "" onClick={()=>{goFavourite()}}></img>
+        <div className={styles.cartContainer}>
             <img className={styles.img} src={cartPic} alt = "" onClick={()=>{goCart()}}></img>
             {$counter}
         </div>

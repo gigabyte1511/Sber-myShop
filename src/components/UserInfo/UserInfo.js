@@ -14,26 +14,21 @@ const USERINFO_QUERY_KEY = "USERINFO_QUERY_KEY";
 function UserInfo(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
+    const {group, token} = useSelector((store) => store.user);
 
     //Функция выполнения выхода пользователя, удаление токена
     const SingOut = () =>{
-        localStorage.removeItem("token");
-        localStorage.removeItem("group");
-        localStorage.removeItem("cart");
         dispatch(removeToken());
         dispatch(removeUserGroup());
         navigate("/sign");
     }
 
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
-        queryKey: [USERINFO_QUERY_KEY, user.group], 
+        queryKey: [USERINFO_QUERY_KEY, group, token], 
         queryFn: getUserInfo
     }); 
 
     function prepareToSignIn(){
-        localStorage.removeItem("group");
-        localStorage.removeItem("token");
         navigate("/sign");
     }
 
