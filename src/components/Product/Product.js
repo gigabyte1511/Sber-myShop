@@ -2,10 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartAdd, cartDelete } from '../../redux/slices/cartSlices';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
 import styles from './styles.module.css';
+// import favouriteIcon from './img/favourite.svg';
+import {ReactComponent as FavouriteIcon} from './img/favourite.svg';
+import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlices';
 
 function Product({params}){
     const dispatch = useDispatch();
     const cart = useSelector((store) => store.cart);
+    const favourites = useSelector((store) => store.favourite);
 
     let $price = <p className>{params.price}</p>;
     let $discountPrice;
@@ -24,17 +28,38 @@ function Product({params}){
     const deleteFromCart = () => {
         dispatch(cartDelete({id: params._id}));
     }
+    const addToFavourite = () => {
+        dispatch(favouriteAdd(params._id))
+    }
+    const deleteFromFavourite = () => {
+        dispatch(favouriteDelete(params._id));
+    }
 
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;
     const idsInCart = cart.map((product) => product.id);
-
     if(idsInCart.includes(params._id)){
         $cartButton = <UsualButton do = { deleteFromCart } text="Remove from Cart" />
-
     }
 
+    let $favouriteButton = <FavouriteIcon className={styles.favoutiteIcon} onClick={addToFavourite}/>;
+    if(favourites.includes(params._id)){
+        $favouriteButton = <FavouriteIcon style={{fill:"red"}} className={styles.favoutiteIcon} onClick={deleteFromFavourite}/>;
+    }
+
+    // const doFavourite = (event) =>{
+    //     if(!favourite.includes(params._id)){
+
+    //     }
+    //     console.log(event.target);
+    //     console.log(event.target.getAttribute("fill"));
+    //     event.target.setAttribute("fill", "red")
+    //     console.log(params._id)
+    //     //event.target.style.fill = "red";
+    // }
     return (
     <div className={styles.container}>
+        {/* <FavouriteIcon className={styles.favoutiteIcon} onClick={doFavourite}/> */}
+        {$favouriteButton}
         <img src={params.pictures} className={styles.imageContainer} alt = "123"></img>
         <hr className={styles.hr}></hr>
         <div>

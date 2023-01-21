@@ -1,4 +1,5 @@
 // Метод получения всех продуктов
+
 export const getProducts = (params) => fetch('https://api.react-learning.ru/products',{
     method: 'GET',
     headers: {
@@ -19,11 +20,11 @@ export const getProducts = (params) => fetch('https://api.react-learning.ru/prod
 
 // Метод получения продуктов по массиву ID
 export const getProductsByIds = ({ queryKey }) => {
-    const [_key, idMass] = queryKey;
+    const [_key, idMass, token] = queryKey;
     return Promise.all(idMass.map(id => fetch(`https://api.react-learning.ru/products/${id}`,{
     method: 'GET',
     headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`
+        authorization: `Bearer ${token}`
     }
 })))
 .then((resMass)=> {
@@ -42,11 +43,11 @@ export const getProductsByIds = ({ queryKey }) => {
 
 // Метод получения продуктов по ключу
 export const getProductsByWord = ({ queryKey }) => {
-    const [_key, word] = queryKey;
+    const [_key, word, token] = queryKey;
     return fetch(`https://api.react-learning.ru/products/search?query=${word}`,{
     method: 'GET',
     headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`
+        authorization: `Bearer ${token}`
     }
 })
 .then((res)=> {
@@ -124,7 +125,7 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     export const getUserInfo = ({queryKey}) => fetch(`https://api.react-learning.ru/v2/${queryKey[1]}/users/me`,{
         method: 'GET',
         headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`
+            authorization: `Bearer ${queryKey[2]}`
         }
     })
     .then((res)=> {

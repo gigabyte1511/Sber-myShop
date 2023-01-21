@@ -12,19 +12,17 @@ export const GET_PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
 
 function Main(){
     const searchString = useSelector((store) => store.search);
+    const token = useSelector((store) => store.user.token);
+
     const navigate = useNavigate();
 
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
-        queryKey: [GET_PRODUCTS_QUERY_KEY, searchString], 
+        queryKey: [GET_PRODUCTS_QUERY_KEY, searchString, token], 
         queryFn: getProductsByWord
     }); 
 
     function prepareToSignIn(){
-        localStorage.removeItem("group");
-        localStorage.removeItem("token");
-        localStorage.removeItem("cart");
         navigate("/sign");
-
     }
 
     if(isLoading) return <Loader />

@@ -2,20 +2,20 @@
 export function getInitialState(){
     let initialState = {
         cart: [],
+        favourite: [],
         search: "",
         user:{
             group: "",
             token: "",
         } 
     };
-    if(localStorage.getItem("cart") !== null) {
-        initialState.cart = JSON.parse(localStorage.getItem("cart"));
+    if(localStorage.getItem("state") !== null) {
+        const {cart, favourite, search, user} = JSON.parse(localStorage.getItem("state"));
+        initialState.cart = cart;
+        initialState.user.token = user.token;
+        initialState.user.group = user.group;
+        initialState.favourite = favourite;
     }
-    if(localStorage.getItem("token") !== null) {
-        initialState.user.token = localStorage.getItem("token");
-    }
-    if(localStorage.getItem("group") !== null) {
-        initialState.user.group = localStorage.getItem("group");
-    }
+
     return initialState;
 }

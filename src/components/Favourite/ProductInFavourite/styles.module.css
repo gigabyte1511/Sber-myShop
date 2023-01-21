@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+}
+.productContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.imageContainer{
+    height: 100px;
+}
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.infoContainer h1{
+    font-size: 20px;
+}
+.infoContainer p{
+    margin: 0;
+}
+.priceContainer{
+    display: flex;
+    gap: 5px;
+}
