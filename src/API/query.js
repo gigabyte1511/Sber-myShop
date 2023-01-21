@@ -21,7 +21,6 @@ export const getProducts = (params) => fetch('https://api.react-learning.ru/prod
 // Метод получения продуктов по массиву ID
 export const getProductsByIds = ({ queryKey }) => {
     const [_key, idMass, token] = queryKey;
-    console.log("query", token)
     return Promise.all(idMass.map(id => fetch(`https://api.react-learning.ru/products/${id}`,{
     method: 'GET',
     headers: {

@@ -6,6 +6,7 @@ import Loader from '../Loader/Loader';
 import { PlaceHolder } from '../PlaceHolder/PlaceHolder';
 import { ProductInFavourite } from './ProductInFavourite/ProductInFavourite';
 import styles from './styles.module.css';
+import heartImg from "./img/broken-heart.svg"
 
 export function Favourite(){
     const favoutite = useSelector((store) => store.favourite);
@@ -20,7 +21,7 @@ export function Favourite(){
     if(isError) return <p>{`${error}`}</p>
     if(isSuccess) {
         const $productsInFavouriteJSX = data.map((elem) => <ProductInFavourite params = {elem}/>)
-        if(data.length === 0) return <PlaceHolder text = "Favourite is empty"/>
+        if(data.length === 0) return <PlaceHolder text = "Favourite is empty" image = {heartImg}/>
 
         return (
             <div className={styles.container}>

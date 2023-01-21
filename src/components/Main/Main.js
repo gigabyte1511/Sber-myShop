@@ -13,7 +13,6 @@ export const GET_PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
 function Main(){
     const searchString = useSelector((store) => store.search);
     const token = useSelector((store) => store.user.token);
-    console.log("Token", token);
 
     const navigate = useNavigate();
 

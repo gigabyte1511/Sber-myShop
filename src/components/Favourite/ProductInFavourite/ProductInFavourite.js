@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { cartAdd, cartDelete } from '../../../redux/slices/cartSlices';
 import { favouriteDelete } from '../../../redux/slices/favouriteSlices';
-import { UsualButton } from '../../Buttons/UsualButton/UsualButton';
+import { DoubleSelector } from '../../Buttons/DoubleSelector/DoubleSelector';
 import styles from './styles.module.css';
 
 export function ProductInFavourite({params}){
-    const favourite = useSelector((store) => store.favourite);
+    const cart = useSelector((store) => store.cart);
     const dispatch = useDispatch();
 
-    // const cart = useSelector((store) => store.cart);
 
     let $priceBlock = params.price;
+    const actualPrice = params.price - (params.discount * params.price / 100)
     if(params.discount){
-        const actualPrice = params.price - (params.discount * params.price / 100)
         $priceBlock = [
             <div className={styles.priceContainer}>
                 <p style={{
@@ -32,25 +32,40 @@ export function ProductInFavourite({params}){
             </p>
         ]
     }
-    // const addToCart = () =>{}
-    const removeFromFavourite = () => dispatch(favouriteDelete(params._id))
+    const removeFromFavourite = () => dispatch(favouriteDelete(params._id));
+    const addToCart = () => {
+        dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, isSelected: true, stock: params.stock}));
+    }
+    const deleteFromCart = () => {
+        dispatch(cartDelete({id: params._id}));
+    }
 
+    let $doubleSelector = 
+        <DoubleSelector
+            text = {{left:"Remove", right:"Add in cart"}} 
+            do = {{left: removeFromFavourite, right: addToCart}} 
+            />;
+    const idsInCart = cart.map((product) => product.id);
+    if(idsInCart.includes(params._id)){
+        $doubleSelector = 
+            <DoubleSelector
+                text = {{left:"Remove", right:"Del from cart"}} 
+                do = {{left: removeFromFavourite, right: deleteFromCart}} 
+            />;
+    }
     return (
         <div className={styles.container}>
-            <div className={styles.imageContainer}>
-                <img src={params.pictures} alt = "123" style = {{height: "100px", width: "100px" }}></img>
+            <div className={styles.productContainer}>
+                <div className={styles.imageContainer}>
+                    <img src={params.pictures} alt = "123" style = {{height: "100px", width: "100px" }}></img>
+                </div>
+                <div className={styles.infoContainer}>
+                    <h1>{params.name}</h1>
+                    <p>Likes: {params.likes.length}</p>
+                    {$priceBlock}
+                </div>
             </div>
-            <div className={styles.infoContainer}>
-                <h1>{params.name}</h1>
-                <p>Likes: {params.likes.length}</p>
-                {$priceBlock}
-                <UsualButton text = {"Remove"} do = {removeFromFavourite} />
-            </div>
-            {/* <div className={styles.buttonContainer}>
-                <UsualButton text = {"Add to cart"} do = {addToCart} />
-                <UsualButton text = {"Remove from favourite"} do = {removeFromFavourite} />
-            </div> */}
-
+            {$doubleSelector}
         </div>
 
     )

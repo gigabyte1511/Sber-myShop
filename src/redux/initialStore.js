@@ -9,7 +9,6 @@ export function getInitialState(){
             token: "",
         } 
     };
-    console.log(JSON.parse(localStorage.getItem("state")));
     if(localStorage.getItem("state") !== null) {
         const {cart, favourite, search, user} = JSON.parse(localStorage.getItem("state"));
         initialState.cart = cart;
