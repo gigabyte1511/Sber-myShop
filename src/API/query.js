@@ -83,7 +83,7 @@ export const signIn = (data) => fetch('https://api.react-learning.ru/signin',{
         return data;
     })
 
-// Метод регистрации нового пользователя с автоматической авторизации в случае успеха
+// Метод регистрации нового пользователя с автоматической авторизацией в случае успеха
 export const signUp = (userData) => fetch('https://api.react-learning.ru/signup',{
         method: 'POST',
         headers: {
@@ -139,3 +139,25 @@ export const signUp = (userData) => fetch('https://api.react-learning.ru/signup'
     .then((data)=> {
         return data;
     })
+
+// Метод получения комментариев по id товара
+export const getCommentsByProductID = ({ queryKey }) => {
+    const [_key, id, token] = queryKey;
+    return fetch(`https://api.react-learning.ru/products/review/${id}`,{
+    method: 'GET',
+    headers: {
+        authorization: `Bearer ${token}`
+    }
+})
+.then((res)=> {
+    if(res.status !== 200){
+        return res.json().then((data) => {
+            throw new Error(data.message)
+        });
+    }
+    return res.json();
+})
+.then((data)=> {
+    return data;
+})
+}

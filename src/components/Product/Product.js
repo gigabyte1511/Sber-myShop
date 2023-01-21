@@ -5,9 +5,11 @@ import styles from './styles.module.css';
 // import favouriteIcon from './img/favourite.svg';
 import {ReactComponent as FavouriteIcon} from './img/favourite.svg';
 import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlices';
+import { useNavigate } from 'react-router-dom';
 
 function Product({params}){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const cart = useSelector((store) => store.cart);
     const favourites = useSelector((store) => store.favourite);
 
@@ -60,7 +62,7 @@ function Product({params}){
     <div className={styles.container}>
         {/* <FavouriteIcon className={styles.favoutiteIcon} onClick={doFavourite}/> */}
         {$favouriteButton}
-        <img src={params.pictures} className={styles.imageContainer} alt = "123"></img>
+        <img src={params.pictures} className={styles.imageContainer} onClick={()=> navigate(`/productDetailed/${params._id}`, { state: params})} alt = "123"></img>
         <hr className={styles.hr}></hr>
         <div>
             <div className={styles.priceField}>

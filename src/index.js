@@ -11,6 +11,7 @@ import { Cart } from './components/Cart/Cart';
 import { Provider } from 'react-redux'
 import { store } from './redux/store';
 import { Favourite } from './components/Favourite/Favourite';
+import { ProductDetailed } from './components/ProductDetailed/ProductDetailed';
 
 /*  
   12/01/2023
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "favourite",
         element: <Favourite />,
+      },
+      {
+        path: "productDetailed/*",
+        element: <ProductDetailed />,
       },
     ],
   },

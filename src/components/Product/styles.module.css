@@ -20,6 +20,7 @@ border-radius: 5px;
     width: 130px;
     height: 100px;
     background: #E1E1E1;
+    cursor: pointer;
 }
 
 .priceField{

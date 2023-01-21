@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch} from "react-redux";
 import { setSearch } from "../../redux/slices/searchSlices";
-import { useDebounce } from "../Cart/CustomHooks/useDebounce";
+import { useDebounce } from "../CustomHooks/useDebounce";
 import styles from "./styles.module.css"
 function SearchBar(){
     const dispatch = useDispatch();

@@ -1,0 +1,58 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  width: 80%;
+}
+.headerContainer{
+  margin: 0;
+  padding: 10px;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+.infoContainer{
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+
+  background: #FFFFFF;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+.image{
+  height: 350px;
+  width: 350px;
+
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+
+}
+.rightBlock{
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.priceContainer{
+  display: flex;
+  gap: 5px;
+}
+.autorAboutContainer{
+  padding: 10px;
+
+  background: #FFFFFF;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+.commentsContainer{
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+
+  background: #FFFFFF;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
