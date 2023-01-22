@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { getCommentsByProductID } from '../../API/query';
+import { Accordion } from '../Accordion/Accordion';
 import Loader from '../Loader/Loader';
 import { Comment } from './Comment/Comment';
 import styles from './styles.module.css';
@@ -72,8 +73,7 @@ export function ProductDetailed(){
                 <p>Autor group: {params.author.group}</p>
             </div>
             <div className={styles.commentsContainer}>
-                <h1>Comments</h1>
-                {$comments}
+                <Accordion params = {{name: "Comments", strings: $comments}}/>
             </div>
         </div>
     )

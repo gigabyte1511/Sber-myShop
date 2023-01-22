@@ -6,11 +6,12 @@ export function Comment({params}){
             <img className={styles.imageContainer} src={params.author.avatar} alt = "123"></img>
             <div className={styles.infoContainer}>
                 <p style={{fontSize: 14}}>{params.author.name}</p>
-                <p>{params.rating}</p>
-                <p style={{fontSize: 8}}>{params.created_at}</p>
+                <p>Rate: {params.rating}</p>
+                {/* <p className = {styles.date}>{params.created_at}</p> */}
             </div>
             <div className={styles.textContainer}>
                 <p>{params.text}</p>
+                <p className = {styles.date}>{params.created_at}</p>
             </div>
         </div>
     );

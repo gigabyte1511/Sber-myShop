@@ -48,19 +48,8 @@ function Product({params}){
         $favouriteButton = <FavouriteIcon style={{fill:"red"}} className={styles.favoutiteIcon} onClick={deleteFromFavourite}/>;
     }
 
-    // const doFavourite = (event) =>{
-    //     if(!favourite.includes(params._id)){
-
-    //     }
-    //     console.log(event.target);
-    //     console.log(event.target.getAttribute("fill"));
-    //     event.target.setAttribute("fill", "red")
-    //     console.log(params._id)
-    //     //event.target.style.fill = "red";
-    // }
     return (
     <div className={styles.container}>
-        {/* <FavouriteIcon className={styles.favoutiteIcon} onClick={doFavourite}/> */}
         {$favouriteButton}
         <img src={params.pictures} className={styles.imageContainer} onClick={()=> navigate(`/productDetailed/${params._id}`, { state: params})} alt = "123"></img>
         <hr className={styles.hr}></hr>
