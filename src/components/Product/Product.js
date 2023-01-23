@@ -7,6 +7,9 @@ import {ReactComponent as FavouriteIcon} from './img/favourite.svg';
 import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlices';
 import { useNavigate } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+
+
 function Product({params}){
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,16 +28,21 @@ function Product({params}){
 
     const addToCart = () => {
         dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, isSelected: true, stock: params.stock}));
+        toast(`Product "${params.name.slice(0,20)}..." has been add to the cart.`, { type: "success", icon: "🛒" });
     }
-
     const deleteFromCart = () => {
         dispatch(cartDelete({id: params._id}));
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "error", icon: "🛒" });
     }
     const addToFavourite = () => {
         dispatch(favouriteAdd(params._id))
+        toast(`Product "${params.name.slice(0,20)}..." has been add to the favourite.`, { type: "success", icon: "❤️" });
+
     }
     const deleteFromFavourite = () => {
         dispatch(favouriteDelete(params._id));
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
+
     }
 
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;

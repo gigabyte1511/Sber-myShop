@@ -13,6 +13,10 @@ import { store } from './redux/store';
 import { Favourite } from './components/Favourite/Favourite';
 import { ProductDetailed } from './components/ProductDetailed/ProductDetailed';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 /*  
   12/01/2023
     Что нового?
@@ -74,6 +78,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ToastContainer autoClose={2000} hideProgressBar={true} theme="colored" />
     <Provider store={store}>
     <QueryClientProvider client = {queryClient}>
       <RouterProvider router={router} />

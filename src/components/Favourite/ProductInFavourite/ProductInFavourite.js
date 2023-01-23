@@ -4,6 +4,8 @@ import { favouriteDelete } from '../../../redux/slices/favouriteSlices';
 import { DoubleSelector } from '../../Buttons/DoubleSelector/DoubleSelector';
 import styles from './styles.module.css';
 
+import { toast } from 'react-toastify';
+
 export function ProductInFavourite({params}){
     const cart = useSelector((store) => store.cart);
     const dispatch = useDispatch();
@@ -32,12 +34,17 @@ export function ProductInFavourite({params}){
             </p>
         ]
     }
-    const removeFromFavourite = () => dispatch(favouriteDelete(params._id));
+    const removeFromFavourite = () => {
+        dispatch(favouriteDelete(params._id));
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
+    }
     const addToCart = () => {
         dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, isSelected: true, stock: params.stock}));
+        toast(`Product "${params.name.slice(0,20)}..." has been add to the cart.`, { type: "success", icon: "🛒" });
     }
     const deleteFromCart = () => {
         dispatch(cartDelete({id: params._id}));
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "error", icon: "🛒" });
     }
 
     let $doubleSelector = 
