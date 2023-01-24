@@ -32,6 +32,7 @@ function HeaderNavigation(){
 
  return(
     <div className={styles.imgContainer}>
+        <img className={styles.img} src={addProduct} alt = "" onClick={()=>{goFavourite()}}></img>
         <img className={styles.img} src={favouritePic} alt = "" onClick={()=>{goFavourite()}}></img>
         <div className={styles.cartContainer}>
             <img className={styles.img} src={cartPic} alt = "" onClick={()=>{goCart()}}></img>
