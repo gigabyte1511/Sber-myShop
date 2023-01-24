@@ -1,6 +1,8 @@
 import favouritePic from "./img/favourite.svg"
 import cartPic from "./img/cart.svg" 
 import personPic from "./img/person.svg"
+import addProduct from "./img/add.svg"
+
 import styles from "./styles.module.css"
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
