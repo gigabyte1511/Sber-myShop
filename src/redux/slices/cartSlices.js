@@ -1,12 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { getInitialState } from "../initialStore"
+import { toast } from "react-toastify";
+
 
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState: getInitialState().cart,
     reducers: {
+        // cartAdd: (state, action) => {
+        //   toast.success("MY SUCCESS");
+        //   return [ action.payload, ...state ]},
         cartAdd: (state, action) => [ action.payload, ...state ],
+        
         cartDelete: (state, action) => state.filter((elem)=> elem.id !== action.payload.id),
         cartCounterIncrement: (state, action) => state.map((elem)=> elem.id === action.payload.id && elem.count < elem.stock? {...elem, count: elem.count + 1} : elem),
         cartCounterDecrement: (state, action) => state

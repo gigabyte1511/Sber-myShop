@@ -3,15 +3,21 @@ import { cartCounterDecrement, cartCounterIncrement, cartSelect, cartUnselect } 
 import { CounterButton } from "../../Buttons/CounterButton/CounterButton"
 import styles from "./styles.module.css"
 
+import { toast } from 'react-toastify';
+
 export function ProductInCart({params}){
     const cart = useSelector((store) => store.cart);
-    const [{count, isSelected, actualPrice}] = cart
+    const [{count, isSelected, actualPrice, stock}] = cart
         .filter((product) => product.id === params._id)
 
     const dispatch = useDispatch();
     //Увеличить count товара
     const increment = () => {
-        dispatch(cartCounterIncrement({id: params._id}));
+        if(count < stock){
+            dispatch(cartCounterIncrement({id: params._id}));
+            return;
+        }
+        toast(`More items are not available`, { type: "warning"});
     }
     //Уменьшить count товара
     const decrement = () => {

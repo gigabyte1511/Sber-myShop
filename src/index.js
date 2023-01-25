@@ -11,6 +11,12 @@ import { Cart } from './components/Cart/Cart';
 import { Provider } from 'react-redux'
 import { store } from './redux/store';
 import { Favourite } from './components/Favourite/Favourite';
+import { ProductDetailed } from './components/ProductDetailed/ProductDetailed';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CreateProduct } from './components/CreateProduct/CreateProduct';
+
 
 /*  
   12/01/2023
@@ -61,6 +67,14 @@ const router = createBrowserRouter([
         path: "favourite",
         element: <Favourite />,
       },
+      {
+        path: "productDetailed/*",
+        element: <ProductDetailed />,
+      },
+      {
+        path: "createProduct",
+        element: <CreateProduct />,
+      },
     ],
   },
 ]);
@@ -69,6 +83,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ToastContainer autoClose={2000} hideProgressBar={true} theme="colored" />
     <Provider store={store}>
     <QueryClientProvider client = {queryClient}>
       <RouterProvider router={router} />

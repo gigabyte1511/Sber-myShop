@@ -3,11 +3,16 @@ import { cartAdd, cartDelete } from '../../redux/slices/cartSlices';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
 import styles from './styles.module.css';
 // import favouriteIcon from './img/favourite.svg';
-import {ReactComponent as FavouriteIcon} from './img/favourite.svg';
+import {ReactComponent as FavouriteIcon} from './img/favourite_1.svg';
 import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlices';
+import { useNavigate } from 'react-router-dom';
+
+import { toast } from 'react-toastify';
+
 
 function Product({params}){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const cart = useSelector((store) => store.cart);
     const favourites = useSelector((store) => store.favourite);
 
@@ -23,16 +28,21 @@ function Product({params}){
 
     const addToCart = () => {
         dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, isSelected: true, stock: params.stock}));
+        toast(`Product "${params.name.slice(0,20)}..." has been add to the cart.`, { type: "success", icon: "🛒" });
     }
-
     const deleteFromCart = () => {
         dispatch(cartDelete({id: params._id}));
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "error", icon: "🛒" });
     }
     const addToFavourite = () => {
         dispatch(favouriteAdd(params._id))
+        toast(`Product "${params.name.slice(0,20)}..." has been add to the favourite.`, { type: "success", icon: "❤️" });
+
     }
     const deleteFromFavourite = () => {
         dispatch(favouriteDelete(params._id));
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
+
     }
 
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;
@@ -43,24 +53,13 @@ function Product({params}){
 
     let $favouriteButton = <FavouriteIcon className={styles.favoutiteIcon} onClick={addToFavourite}/>;
     if(favourites.includes(params._id)){
-        $favouriteButton = <FavouriteIcon style={{fill:"red"}} className={styles.favoutiteIcon} onClick={deleteFromFavourite}/>;
+        $favouriteButton = <FavouriteIcon style={{fill:"orange"}} className={styles.favoutiteIcon} onClick={deleteFromFavourite}/>;
     }
 
-    // const doFavourite = (event) =>{
-    //     if(!favourite.includes(params._id)){
-
-    //     }
-    //     console.log(event.target);
-    //     console.log(event.target.getAttribute("fill"));
-    //     event.target.setAttribute("fill", "red")
-    //     console.log(params._id)
-    //     //event.target.style.fill = "red";
-    // }
     return (
     <div className={styles.container}>
-        {/* <FavouriteIcon className={styles.favoutiteIcon} onClick={doFavourite}/> */}
         {$favouriteButton}
-        <img src={params.pictures} className={styles.imageContainer} alt = "123"></img>
+        <img src={params.pictures} className={styles.imageContainer} onClick={()=> navigate(`/productDetailed/${params._id}`, { state: params})} alt = "123"></img>
         <hr className={styles.hr}></hr>
         <div>
             <div className={styles.priceField}>

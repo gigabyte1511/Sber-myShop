@@ -6,6 +6,9 @@ import { setToken, setUserGroup } from "../../../redux/slices/userSlices";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
+import { toast } from 'react-toastify';
+
+
 const SINGUP_QUERY_KEY = "SINGUP_QUERY_KEY";
 
 function SignUp () {
@@ -26,11 +29,13 @@ function SignUp () {
     }
 
     if(isSuccess){
+        toast(`Success sing in`, { type: "success"});
         dispatch(setToken(data.token));
         dispatch(setUserGroup(data.data.group));
         navigate("/main");
     }
     if(isError){
+        toast(`${error.message}`, { type: "error"});
         return (
             <div className={styles.container}>
                         <h3 className={styles.header}>Registration</h3>

@@ -6,6 +6,8 @@ import { setToken, setUserGroup } from "../../../redux/slices/userSlices";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
+import { toast } from 'react-toastify';
+
 const SINGIN_QUERY_KEY = "SINGIN_QUERY_KEY";
 
 function SignIn () {
@@ -26,11 +28,13 @@ function SignIn () {
     if(isSuccess){
         dispatch(setToken(data.token));
         dispatch(setUserGroup(data.data.group));
+        toast(`Success sing in`, { type: "success"});
         navigate("/main");
     }
 
     if(isError){
         console.log("Error", error.message);
+        toast(`${error.message}`, { type: "error"});
         return(
             <div className={styles.container}>
                 <h3 className = {styles.header}>Autorisation</h3>
