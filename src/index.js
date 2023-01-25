@@ -15,6 +15,7 @@ import { ProductDetailed } from './components/ProductDetailed/ProductDetailed';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CreateProduct } from './components/CreateProduct/CreateProduct';
 
 
 /*  
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "productDetailed/*",
         element: <ProductDetailed />,
+      },
+      {
+        path: "createProduct",
+        element: <CreateProduct />,
       },
     ],
   },

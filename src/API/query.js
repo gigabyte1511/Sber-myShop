@@ -161,3 +161,23 @@ export const getCommentsByProductID = ({ queryKey }) => {
     return data;
 })
 }
+
+export const createProduct = (data) => fetch('https://api.react-learning.ru/products',{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        authorization: `Bearer ${data[1]}`
+        },
+        body: JSON.stringify(data[0]),
+    })
+    .then((res)=> {
+        if(res.status !== 201){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })

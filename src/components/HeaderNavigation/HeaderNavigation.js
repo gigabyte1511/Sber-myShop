@@ -30,9 +30,15 @@ function HeaderNavigation(){
         }
     }
 
+    const goCreateProduct = () =>{
+        if (token){
+            navigate("/createProduct")
+        }
+    }
+
  return(
     <div className={styles.imgContainer}>
-        <img className={styles.img} src={addProduct} alt = "" onClick={()=>{goFavourite()}}></img>
+        <img className={styles.img} src={addProduct} alt = "" onClick={()=>{goCreateProduct()}}></img>
         <img className={styles.img} src={favouritePic} alt = "" onClick={()=>{goFavourite()}}></img>
         <div className={styles.cartContainer}>
             <img className={styles.img} src={cartPic} alt = "" onClick={()=>{goCart()}}></img>

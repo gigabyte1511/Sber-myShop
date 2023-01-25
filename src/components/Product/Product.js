@@ -3,7 +3,7 @@ import { cartAdd, cartDelete } from '../../redux/slices/cartSlices';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
 import styles from './styles.module.css';
 // import favouriteIcon from './img/favourite.svg';
-import {ReactComponent as FavouriteIcon} from './img/favourite.svg';
+import {ReactComponent as FavouriteIcon} from './img/favourite_1.svg';
 import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlices';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,7 +53,7 @@ function Product({params}){
 
     let $favouriteButton = <FavouriteIcon className={styles.favoutiteIcon} onClick={addToFavourite}/>;
     if(favourites.includes(params._id)){
-        $favouriteButton = <FavouriteIcon style={{fill:"red"}} className={styles.favoutiteIcon} onClick={deleteFromFavourite}/>;
+        $favouriteButton = <FavouriteIcon style={{fill:"orange"}} className={styles.favoutiteIcon} onClick={deleteFromFavourite}/>;
     }
 
     return (
