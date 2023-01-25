@@ -1,8 +1,8 @@
 # MySHop. The project of the educational process at the SberUniversity school
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-<img src="./logo.svg">
-## Available Scripts
+## Available Scripts!
+<img src="logoTest.svg" alt="" >
 
 In the project directory, you can run:
 
