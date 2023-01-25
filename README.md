@@ -1,7 +1,7 @@
-# Getting Started with Create React App
+# MySHop. The project of the educational process at the SberUniversity school
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+<img src="./logo.svg">
 ## Available Scripts
 
 In the project directory, you can run:
