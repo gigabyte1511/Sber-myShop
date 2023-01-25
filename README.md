@@ -1,8 +1,7 @@
-# MySHop. The project of the educational process at the SberUniversity school
-
+# MyShop, the project of the educational process at the SberUniversity school
+<img src="src/logoTest.svg" alt="" style = "color: red" >
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Available Scripts!
-<img src="src/logoTest.svg" alt="" style = "color: red" >
 
 In the project directory, you can run:
 
