@@ -7,6 +7,7 @@ export function getInitialState(){
         user:{
             group: "",
             token: "",
+            id: "",
         } 
     };
     if(localStorage.getItem("state") !== null) {
@@ -14,6 +15,7 @@ export function getInitialState(){
         initialState.cart = cart;
         initialState.user.token = user.token;
         initialState.user.group = user.group;
+        initialState.user.id = user.id;
         initialState.favourite = favourite;
     }
 

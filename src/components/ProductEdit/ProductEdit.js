@@ -1,32 +1,35 @@
 import styles from './styles.module.css';
 import { Formik, Field, Form } from 'formik';
 import { useMutation } from '@tanstack/react-query';
-import { createProduct } from '../../API/query';
+import { editProduct } from '../../API/query';
 import { useSelector } from 'react-redux';
 import Loader from '../Loader/Loader';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export const CREATE_PRODUCT_QUERY_KEY = "CREATE_PRODUCT_QUERY_KEY";
+export const EDIT_PRODUCT_QUERY_KEY = "EDIT_PRODUCT_QUERY_KEY";
 
-export function CreateProduct(){
-    const token = useSelector((store) => store.user.token);
+export function ProductEdit(){
+    const {state:params} = useLocation();
+    const [url, setUrl] = useState(params.pictures);
+
+    const { token, group } = useSelector((store) => store.user);
     const navigate = useNavigate()
-    const [url, setUrl] = useState("");
-    const {isSuccess, isLoading,isError, mutate, data, error} = useMutation({
-        queryKey: [CREATE_PRODUCT_QUERY_KEY], 
-        mutationFn: createProduct,
+
+    const {isSuccess, isLoading,isError, mutate, error} = useMutation({
+        queryKey: [EDIT_PRODUCT_QUERY_KEY], 
+        mutationFn: editProduct,
     })
-    const tryCreateProduct = (values) =>{
-        mutate([values,token]);
+    const tryEdit = (values) =>{
+        mutate([values, token, params._id]);
     }
     if(isLoading) return <Loader />
     if(isSuccess) {
-        toast(`Product "${data.name.slice(0,20)}..." has been created.`, { type: "success"});
-        navigate(`/productDetailed/${data._id}`, { state: data});
+        toast(`Success edit product info.`, { type: "success"});
+        navigate(`/main/${params._id}`);
     };
     if(isError) {
         console.log("errors",error);
@@ -36,19 +39,19 @@ export function CreateProduct(){
 
     return(
         <div className={styles.container}>
-            <h1>Add new product</h1>
+            <h1>Edit product</h1>
             <div className={styles.bodyContainer}>
-            <img className={styles.imageContainer} src = {url} alt = "Product"></img>
+            <img className={styles.imageContainer} src = {url} alt = "123"></img>
             <Formik 
                 initialValues={{
                     available: true,
-                    pictures: "",
-                    name: "",
-                    price: "",
-                    discount: "",
-                    stock: "",
-                    wight: "",
-                    description: '',
+                    pictures: params.pictures,
+                    name: params.name,
+                    price: params.price,
+                    discount: params.discount,
+                    stock: params.stock,
+                    wight: params.wight,
+                    description: params.description,
                 }}
                 validationSchema={Yup.object({
                     available: Yup.string()
@@ -77,7 +80,7 @@ export function CreateProduct(){
                   })}
                 handleChange ={(e) => console.log(e)}
                 onSubmit={(values) => {
-                    tryCreateProduct(values);
+                    tryEdit(values);
                 }}
             >   
                 {({ errors, touched }) => (
@@ -138,9 +141,7 @@ export function CreateProduct(){
                             <div className={styles.formErrorContainer}>{errors.description}</div>
                         ) : null}
                     </div>
-
-                    {/* <button type="submit">Submit</button> */}
-                    <UsualButton type="submit" text="Create"/>
+                    <UsualButton type="submit" text="Edit"/>
                 </Form>
                 )}
             </Formik>

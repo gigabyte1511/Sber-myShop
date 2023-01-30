@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import { getInitialState } from "../initialStore"
 import { toast } from "react-toastify";
 
-
-
 const cartSlice = createSlice({
     name: 'cart',
     initialState: getInitialState().cart,

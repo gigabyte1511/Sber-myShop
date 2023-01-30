@@ -1,5 +1,4 @@
 // Метод получения всех продуктов
-
 export const getProducts = (params) => fetch('https://api.react-learning.ru/products',{
     method: 'GET',
     headers: {
@@ -39,6 +38,27 @@ export const getProductsByIds = ({ queryKey }) => {
 })
 .then((dataMass)=> {
     return dataMass;
+})}
+
+// Метод получения продуктов по ID
+export const getProductById = ({ queryKey }) => {
+    const [_key, token, id] = queryKey;
+    return fetch(`https://api.react-learning.ru/products/${id}`,{
+    method: 'GET',
+    headers: {
+        authorization: `Bearer ${token}`
+    }
+})
+.then((res)=> {
+        if (res.status!== 200){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+                });
+            }
+        return res.json()
+    })
+.then((data)=> {
+    return data;
 })}
 
 // Метод получения продуктов по ключу
@@ -161,7 +181,7 @@ export const getCommentsByProductID = ({ queryKey }) => {
     return data;
 })
 }
-
+// Метод создания нового продукта
 export const createProduct = (data) => fetch('https://api.react-learning.ru/products',{
         method: 'POST',
         headers: {
@@ -172,6 +192,66 @@ export const createProduct = (data) => fetch('https://api.react-learning.ru/prod
     })
     .then((res)=> {
         if(res.status !== 201){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })
+// Метод редактирования продукта
+export const editProduct = (data) => fetch(`https://api.react-learning.ru/products/${data[2]}`,{
+        method: 'PATCH',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        authorization: `Bearer ${data[1]}`
+        },
+        body: JSON.stringify(data[0]),
+    })
+    .then((res)=> {
+        if(res.status !== 200){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })
+// Метод редактирования информации о пользователе
+export const editUserInfo = (data) => fetch(`https://api.react-learning.ru/v2/${data[2]}/users/me`,{
+        method: 'PATCH',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        authorization: `Bearer ${data[1]}`
+        },
+        body: JSON.stringify(data[0]),
+    })
+    .then((res)=> {
+        if(res.status !== 200){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })
+// Метод редактирования аватара пользователя
+export const editUserPicture = (data) => fetch(`https://api.react-learning.ru/v2/${data[2]}/users/me/avatar`,{
+        method: 'PATCH',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        authorization: `Bearer ${data[1]}`
+        },
+        body: JSON.stringify(data[0]),
+    })
+    .then((res)=> {
+        if(res.status !== 200){
             return res.json().then((data) => {
                 throw new Error(data.message)
             });

@@ -5,7 +5,6 @@ import {ReactComponent as ArrowImg} from './img/arrow.svg';
 export function Accordion({params}){
     const [isSelected, setIsSelected] = useState(false);
     let $content = params.strings;
-    // let $button = <img className={styles.arrowDown} src={arrowImg} onClick={()=> setIsSelected(!isSelected)}></img>
     let $button = <ArrowImg 
             className={styles.arrowUp} 
             onClick={()=> setIsSelected(!isSelected)}

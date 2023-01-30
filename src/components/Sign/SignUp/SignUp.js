@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../../API/query";
-import { setToken, setUserGroup } from "../../../redux/slices/userSlices";
+import { setToken, setUserGroup, setUserID } from "../../../redux/slices/userSlices";
 import { UsualButton } from "../../Buttons/UsualButton/UsualButton";
 import styles from "./styles.module.css"
 
@@ -32,6 +32,7 @@ function SignUp () {
         toast(`Success sing in`, { type: "success"});
         dispatch(setToken(data.token));
         dispatch(setUserGroup(data.data.group));
+        dispatch(setUserID(data.data._id));
         navigate("/main");
     }
     if(isError){

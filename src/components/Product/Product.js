@@ -5,16 +5,19 @@ import styles from './styles.module.css';
 // import favouriteIcon from './img/favourite.svg';
 import {ReactComponent as FavouriteIcon} from './img/favourite_1.svg';
 import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlices';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
 
 function Product({params}){
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cart = useSelector((store) => store.cart);
     const favourites = useSelector((store) => store.favourite);
+    const {id} = useSelector((store) => store.user);
+    // console.log(id, params.author._id)
 
     let $price = <p className>{params.price}</p>;
     let $discountPrice;
@@ -37,14 +40,12 @@ function Product({params}){
     const addToFavourite = () => {
         dispatch(favouriteAdd(params._id))
         toast(`Product "${params.name.slice(0,20)}..." has been add to the favourite.`, { type: "success", icon: "❤️" });
-
     }
     const deleteFromFavourite = () => {
         dispatch(favouriteDelete(params._id));
         toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
-
     }
-
+    
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;
     const idsInCart = cart.map((product) => product.id);
     if(idsInCart.includes(params._id)){
@@ -57,23 +58,22 @@ function Product({params}){
     }
 
     return (
-    <div className={styles.container}>
-        {$favouriteButton}
-        <img src={params.pictures} className={styles.imageContainer} onClick={()=> navigate(`/productDetailed/${params._id}`, { state: params})} alt = "123"></img>
-        <hr className={styles.hr}></hr>
-        <div>
-            <div className={styles.priceField}>
-                {$price}
-                {$discountPrice}
+        <div className={styles.container} style = { (id === params.author._id) ? {backgroundColor: "#ffd0599d"} : null}>
+            {$favouriteButton}
+            <img src={params.pictures} className={styles.imageContainer} onClick={()=> navigate(`${params._id}`)} alt = "123"></img>
+            <hr className={styles.hr}></hr>
+            <div>
+                <div className={styles.priceField}>
+                    {$price}
+                    {$discountPrice}
+                </div>
+                <p>{params.name}</p>
+                <p className = {styles.available} >Available: {params.stock} pс.</p>
             </div>
-            <p>{params.name}</p>
-            <p className = {styles.available} >Available: {params.stock} pс.</p>
+            <div className={styles.buttonContainer}>
+                {$cartButton}
+            </div>
         </div>
-        
-        <div className={styles.buttonContainer}>
-            {$cartButton}
-        </div>
-    </div>
     )
 }
 export {

@@ -26,9 +26,12 @@
     padding: 10px;
     width: 100%;
 }
+.textContainer p{
+    margin: 0px;
+}
 .date{
     position: absolute;
-    bottom: -2px;
+    bottom: 5px;
     right: 5px;
     font-size: 8px;
     background-color: white;

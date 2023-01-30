@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../API/query';
 
-import { removeToken, removeUserGroup } from '../../redux/slices/userSlices';
+import { removeToken, removeUserGroup, removeUserID } from '../../redux/slices/userSlices';
 
 import { UsualButton } from '../Buttons/UsualButton/UsualButton'
 import Loader from '../Loader/Loader';
 import styles from './styles.module.css'
+import { Outlet } from "react-router-dom";
+import { DoubleSelector } from '../Buttons/DoubleSelector/DoubleSelector';
 
-const USERINFO_QUERY_KEY = "USERINFO_QUERY_KEY";
+export const GET_USERINFO_QUERY_KEY = "USERINFO_QUERY_KEY";
 
 function UserInfo(){
     const navigate = useNavigate();
@@ -20,11 +22,13 @@ function UserInfo(){
     const SingOut = () =>{
         dispatch(removeToken());
         dispatch(removeUserGroup());
+        dispatch(removeUserID());
+        localStorage.removeItem("set");
         navigate("/sign");
     }
 
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
-        queryKey: [USERINFO_QUERY_KEY, group, token], 
+        queryKey: [GET_USERINFO_QUERY_KEY, group, token], 
         queryFn: getUserInfo
     }); 
 
@@ -41,11 +45,12 @@ function UserInfo(){
     )
     if(isSuccess) {
         return (
+            <>
             <div className={styles.container}>
             <div className={styles.userIfo}>
                 <div className={styles.avatarContainer}>
-                    <img src={data.avatar} className={styles.avatar} alt='123'></img>
-                    <UsualButton text = "Sing Out" do = {()=>{SingOut()}} />
+                        <img src={data.avatar} className={styles.avatar} alt='123'></img>
+                        <UsualButton text="Edit picture" do = {()=> navigate("editPicture", {state: data})} /> 
                 </div>
                 <div className={styles.infoContainer}>
                     <p>Name: {data.name}</p>
@@ -53,10 +58,18 @@ function UserInfo(){
                     <p>ID: {data._id}</p>
                     <p>EMail: {data.email}</p>
                     <p>Group: {data.group}</p>
+                    <UsualButton text="Edit" do = {()=> navigate("editInfo", {state: data})} /> 
                 </div>
             </div>
-            <UsualButton text = "Close" do = {()=>{navigate("/main")}}/>
+            <div className={styles.buttonContainer}>
+                <DoubleSelector className = {styles.selectorContainer} 
+                    text = {{left:"Sing Out", right:"Close"}} 
+                    do = {{left:()=> SingOut(), right: ()=> navigate("/main")}}
+                />
+            </div>
         </div>
+        <Outlet />
+        </>
         );
     }
 
