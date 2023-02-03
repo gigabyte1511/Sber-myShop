@@ -35,7 +35,7 @@ function Product({params}){
     }
     const deleteFromCart = () => {
         dispatch(cartDelete({id: params._id}));
-        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "error", icon: "🛒" });
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "success", icon: "🛒" });
     }
     const addToFavourite = () => {
         dispatch(favouriteAdd(params._id))
@@ -43,7 +43,7 @@ function Product({params}){
     }
     const deleteFromFavourite = () => {
         dispatch(favouriteDelete(params._id));
-        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "success", icon: "❤️" });
     }
     
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;

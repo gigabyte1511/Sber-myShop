@@ -45,7 +45,7 @@ function UserInfo(){
     )
     if(isSuccess) {
         return (
-            <>
+            <div className={styles.vrapper}>
             <div className={styles.container}>
             <div className={styles.userIfo}>
                 <div className={styles.avatarContainer}>
@@ -69,7 +69,7 @@ function UserInfo(){
             </div>
         </div>
         <Outlet />
-        </>
+        </div>
         );
     }
 

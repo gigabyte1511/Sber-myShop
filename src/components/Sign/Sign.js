@@ -13,11 +13,15 @@ function Sign () {
         setModal(<SignUp />);
     }
     return (
-        <div className={styles.container}>
-            <DoubleSelector className = {styles.selectorContainer} 
-            text = {{left:"Autorisation", right:"Registration"}} do = {{left:openSignInModal,right:openSignUpModal}}/>
-            {$modal}
-        </div>
+        <>
+            <div className={styles.hover}>    
+            </div>
+            <div className={styles.container}>
+                <DoubleSelector className = {styles.selectorContainer} 
+                text = {{left:"Autorisation", right:"Registration"}} do = {{left:openSignInModal,right:openSignUpModal}}/>
+                {$modal}
+            </div>
+        </>
     )
 }
 export {

@@ -1,3 +1,6 @@
+/* .vrapper{
+    min-height: 600px;
+} */
 .container{
     display: flex;
     flex-direction: column;

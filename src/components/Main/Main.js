@@ -6,6 +6,7 @@ import { UsualButton } from "../Buttons/UsualButton/UsualButton";
 import Loader from "../Loader/Loader";
 import { Product } from "../Product/Product"
 import styles from './styles.module.css'
+import {ReactComponent as NotFoundPic} from './notFound.svg'
 
 
 export const GET_PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
@@ -27,20 +28,27 @@ function Main(){
 
     if(isLoading) return <Loader />
     if(isError) return (
-        <>
+        <div>
             <p>{`${error}`}</p>
             <UsualButton text = {"Sing In"} do = {prepareToSignIn} />
-        </>
+        </div>
         );
     if(isSuccess) {
         const jsx = [];
+        if(data.length === 0) return (
+            <div className={styles.notFound}>
+                <NotFoundPic />
+                <p>The product did not found...</p>
+            </div>
+
+        )
         for (let elem of data){
             jsx.push(<Product params = {elem} />)
         }
         return (
-            <main className={styles.container}>
-                {jsx}
-            </main>
+                <main className={styles.container}>
+                    {jsx}
+                </main>
         );
     }
 }

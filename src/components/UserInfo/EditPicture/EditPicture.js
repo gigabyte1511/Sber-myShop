@@ -20,25 +20,22 @@ export function EditPicture(){
     const { token, group } = useSelector((store) => store.user);
     const navigate = useNavigate()
 
-    const {isSuccess, isLoading,isError, mutate, data, error} = useMutation({
+    const {mutate} = useMutation({
         queryKey: [EDIT_USER_PICTURE_QUERY_KEY], 
         mutationFn: editUserPicture,
+        onSuccess: ()=> {
+            toast(`Success edit user info.`, { type: "success"});
+            queryClient.invalidateQueries({ queryKey: [GET_USERINFO_QUERY_KEY] })
+            navigate(`/userInfo`);
+        },
+        onError: (error)=> {
+            toast(`${error}`, { type: "error"});
+        }
     })
     const tryEdit = (values) =>{
         console.log(values,group,token)
         mutate([values, token, group]);
     }
-    if(isLoading) return <Loader />
-    if(isSuccess) {
-        toast(`Success edit user info.`, { type: "success"});
-        queryClient.invalidateQueries({ queryKey: [GET_USERINFO_QUERY_KEY] })
-        navigate(`/userInfo`);
-    };
-    if(isError) {
-        console.log("errors",error);
-        toast(`${error}`, { type: "error"});
-    }
-
 
     return(
         <>
@@ -53,7 +50,7 @@ export function EditPicture(){
                 }}
                 validationSchema={Yup.object({
                     avatar: Yup.string()
-                        .required('Required'),
+                        .required('Required')
                   })}
 
                 onSubmit={(values) => {

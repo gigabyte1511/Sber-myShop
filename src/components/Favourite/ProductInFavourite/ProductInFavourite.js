@@ -36,7 +36,7 @@ export function ProductInFavourite({params}){
     }
     const removeFromFavourite = () => {
         dispatch(favouriteDelete(params._id));
-        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from favorite.`, { type: "success", icon: "❤️" });
     }
     const addToCart = () => {
         dispatch(cartAdd({id: params._id, count: 1, price: params.price, actualPrice, isSelected: true, stock: params.stock}));
@@ -44,7 +44,7 @@ export function ProductInFavourite({params}){
     }
     const deleteFromCart = () => {
         dispatch(cartDelete({id: params._id}));
-        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "error", icon: "🛒" });
+        toast(`Product "${params.name.slice(0,20)}..." has been removed from cart.`, { type: "success", icon: "🛒" });
     }
 
     let $doubleSelector = 

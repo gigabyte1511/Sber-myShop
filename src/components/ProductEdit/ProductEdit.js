@@ -16,26 +16,25 @@ export function ProductEdit(){
     const {state:params} = useLocation();
     const [url, setUrl] = useState(params.pictures);
 
-    const { token, group } = useSelector((store) => store.user);
+    const { token } = useSelector((store) => store.user);
     const navigate = useNavigate()
 
-    const {isSuccess, isLoading,isError, mutate, error} = useMutation({
+    const {isLoading, mutate, error} = useMutation({
         queryKey: [EDIT_PRODUCT_QUERY_KEY], 
         mutationFn: editProduct,
+        onSuccess:()=>{
+            toast(`Success edit product info.`, { type: "success"});
+            navigate(`/main/${params._id}`);
+        },
+        onError:()=>{
+            console.log("errors",error);
+            toast(`${error}`, { type: "error"});
+        }
     })
     const tryEdit = (values) =>{
         mutate([values, token, params._id]);
     }
     if(isLoading) return <Loader />
-    if(isSuccess) {
-        toast(`Success edit product info.`, { type: "success"});
-        navigate(`/main/${params._id}`);
-    };
-    if(isError) {
-        console.log("errors",error);
-        toast(`${error}`, { type: "error"});
-    }
-
 
     return(
         <div className={styles.container}>
@@ -44,7 +43,6 @@ export function ProductEdit(){
             <img className={styles.imageContainer} src = {url} alt = "123"></img>
             <Formik 
                 initialValues={{
-                    available: true,
                     pictures: params.pictures,
                     name: params.name,
                     price: params.price,
@@ -54,9 +52,6 @@ export function ProductEdit(){
                     description: params.description,
                 }}
                 validationSchema={Yup.object({
-                    available: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
                     pictures: Yup.string()
                         .required('Required'),
                     name: Yup.string()
@@ -85,13 +80,6 @@ export function ProductEdit(){
             >   
                 {({ errors, touched }) => (
                  <Form className={styles.form}>
-                    <div className={styles.fieldContainer}>
-                        <label htmlFor="vailable">Available</label>
-                        <Field id="available" name="available" placeholder="true"/>
-                        {errors.available && touched.available ? (
-                            <div className={styles.formErrorContainer}>{errors.available}</div>
-                        ) : null}
-                        </div>
                     <div className={styles.fieldContainer}>
                         <label htmlFor="pictures">Pictures</label>
                         <Field id="pictures" name="pictures" placeholder="pictures" validate= {(e)=> setUrl(e)}/>

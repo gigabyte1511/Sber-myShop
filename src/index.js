@@ -89,7 +89,7 @@ const router = createBrowserRouter([
         element: <Favourite />,
       },
       {
-        path: "*",
+        path: "main/*",
         element: <ProductDetailed />,
       },
       {

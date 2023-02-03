@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { getProductById } from '../../API/query';
+import { deleteUserProduct, getProductById } from '../../API/query';
 import { cartAdd, cartDelete } from '../../redux/slices/cartSlices';
 import Loader from '../Loader/Loader';
 import styles from './styles.module.css';
@@ -10,6 +10,8 @@ import { favouriteAdd, favouriteDelete } from '../../redux/slices/favouriteSlice
 import { UsualButton } from '../Buttons/UsualButton/UsualButton';
 import { CommentContainer } from './CommentContainer/CommentContainer';
 export const GET_PRODUCTBYID_QUERY_KEY = "GET_PRODUCTBYID_QUERY_KEY";
+export const DELETE_PRODUCTBYID_QUERY_KEY = "DELETE_PRODUCTBYID_QUERY_KEY";
+
 
 export function ProductDetailed(){
 
@@ -27,6 +29,19 @@ export function ProductDetailed(){
         queryFn: getProductById
     }); 
 
+    const {mutate} = useMutation({ 
+        queryKey: [DELETE_PRODUCTBYID_QUERY_KEY, token, productID], 
+        mutationFn: deleteUserProduct,
+        onSuccess: ()=> {
+            toast(`Product "${dataProduct.name.slice(0,20)}..." has been delete.`, { type: "success", icon: "❤️" });
+            navigate(`/main`);
+
+        },
+        onError: (error)=> {
+            toast(`${error.message}`, { type: "error"});  
+        },
+    }); 
+
     if(isLoadingProduct) return <Loader/>
     if(isErrorProduct) console.log(errorProduct)
     
@@ -37,7 +52,7 @@ export function ProductDetailed(){
         }
         const deleteFromCart = () => {
             dispatch(cartDelete({id: dataProduct._id}));
-            toast(`Product "${dataProduct.name.slice(0,20)}..." has been removed from cart.`, { type: "error", icon: "🛒" });
+            toast(`Product "${dataProduct.name.slice(0,20)}..." has been removed from cart.`, { type: "success", icon: "🛒" });
         }
         const addToFavourite = () => {
             dispatch(favouriteAdd(dataProduct._id))
@@ -46,11 +61,19 @@ export function ProductDetailed(){
         }
         const deleteFromFavourite = () => {
             dispatch(favouriteDelete(dataProduct._id));
-            toast(`Product "${dataProduct.name.slice(0,20)}..." has been removed from favorite.`, { type: "error", icon: "❤️" });
+            toast(`Product "${dataProduct.name.slice(0,20)}..." has been removed from favorite.`, { type: "success", icon: "❤️" });
     
         }
         const editProduct = () => {
             navigate(`/edit`, { state: dataProduct});
+        }
+        const deleteProduct = () => {
+            dispatch(cartDelete({id: dataProduct._id}));
+            dispatch(favouriteDelete(dataProduct._id));
+            mutate({
+                token: token,
+                productID: productID,
+            })
         }
 
     let $cartButton = <UsualButton do = { addToCart }  text="Add to Cart" />;
@@ -63,6 +86,7 @@ export function ProductDetailed(){
         $favouriteButton = <UsualButton do = { deleteFromFavourite }  text="Remove from favourite" />;
     }
     const $editButton = <UsualButton do = { editProduct }  text="Edit product" />
+    const $deleteButton = <UsualButton do = { deleteProduct }  text="Delete product" />
 
     let $priceBlock = dataProduct.price;
     const actualPrice = dataProduct.price - (dataProduct.discount * dataProduct.price / 100)
@@ -103,7 +127,7 @@ export function ProductDetailed(){
                     <p>Description: {dataProduct.description}</p>
                     <div className={styles.buttonContainer}>
                         {dataProduct.author._id === userID ? 
-                            [$cartButton, $favouriteButton, $editButton] :
+                            [$cartButton, $favouriteButton, $editButton, $deleteButton] :
                             [$cartButton, $favouriteButton] }
                     </div>
                 </div>
@@ -113,7 +137,6 @@ export function ProductDetailed(){
                 <p>Autor about: {dataProduct.author.about}</p>
                 <p>Autor email: {dataProduct.author.email}</p>
                 <p>Autor name: {dataProduct.author.name}</p>
-                <p>Autor group: {dataProduct.author.group}</p>
             </div>
             <div className={styles.commentsContainer}>
                 <CommentContainer productID = {productID}/>

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useEffect} from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams} from 'react-router-dom';
 import styles from './App.module.css';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
@@ -8,13 +8,17 @@ import { Header } from './components/Header/Header';
 function App() {
   
   const navigate = useNavigate();
+  const {pathname} = useLocation();
+  console.log(pathname);
+  
   const token = useSelector((store) => store.user.token);
   useEffect(() => {
     //Проверка на наличие токена:
     //  Есть - выполнение отображения компонента с товарами
     //  Нет - отображение компонента авторизации
     if (token){
-      navigate('/main');
+      if(pathname === '/') navigate("/main");
+      else navigate(pathname);
     }
     else navigate('/sign');
   },[]);
@@ -22,7 +26,9 @@ function App() {
     return (
       <div className={styles.vrapper}>
           <Header />
-          <Outlet />
+          <div className={styles.body}>
+            <Outlet />
+          </div>
           <Footer />
       </div>
     );

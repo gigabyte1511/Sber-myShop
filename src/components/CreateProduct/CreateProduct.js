@@ -16,23 +16,20 @@ export function CreateProduct(){
     const token = useSelector((store) => store.user.token);
     const navigate = useNavigate()
     const [url, setUrl] = useState("");
-    const {isSuccess, isLoading,isError, mutate, data, error} = useMutation({
+    const {isLoading, mutate } = useMutation({
         queryKey: [CREATE_PRODUCT_QUERY_KEY], 
         mutationFn: createProduct,
+        onSuccess: (data)=> {
+            toast(`Product "${data.name.slice(0,20)}..." has been created.`, { type: "success"});
+            navigate(`/main/${data._id}`, { state: data});
+        },
+        onError: (error)=> toast(`${error}`, { type: "error"})
+
     })
     const tryCreateProduct = (values) =>{
-        mutate([values,token]);
+        mutate([{...values, available: true},token]);
     }
     if(isLoading) return <Loader />
-    if(isSuccess) {
-        toast(`Product "${data.name.slice(0,20)}..." has been created.`, { type: "success"});
-        navigate(`/productDetailed/${data._id}`, { state: data});
-    };
-    if(isError) {
-        console.log("errors",error);
-        toast(`${error}`, { type: "error"});
-    }
-
 
     return(
         <div className={styles.container}>
@@ -41,7 +38,6 @@ export function CreateProduct(){
             <img className={styles.imageContainer} src = {url} alt = "Product"></img>
             <Formik 
                 initialValues={{
-                    available: true,
                     pictures: "",
                     name: "",
                     price: "",
@@ -51,9 +47,6 @@ export function CreateProduct(){
                     description: '',
                 }}
                 validationSchema={Yup.object({
-                    available: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
                     pictures: Yup.string()
                         .required('Required'),
                     name: Yup.string()
@@ -82,13 +75,6 @@ export function CreateProduct(){
             >   
                 {({ errors, touched }) => (
                  <Form className={styles.form}>
-                    <div className={styles.fieldContainer}>
-                        <label htmlFor="vailable">Available</label>
-                        <Field id="available" name="available" placeholder="true"/>
-                        {errors.available && touched.available ? (
-                            <div className={styles.formErrorContainer}>{errors.available}</div>
-                        ) : null}
-                        </div>
                     <div className={styles.fieldContainer}>
                         <label htmlFor="pictures">Pictures</label>
                         <Field id="pictures" name="pictures" placeholder="pictures" validate= {(e)=> setUrl(e)}/>
@@ -138,8 +124,6 @@ export function CreateProduct(){
                             <div className={styles.formErrorContainer}>{errors.description}</div>
                         ) : null}
                     </div>
-
-                    {/* <button type="submit">Submit</button> */}
                     <UsualButton type="submit" text="Create"/>
                 </Form>
                 )}

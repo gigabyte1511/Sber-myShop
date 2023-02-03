@@ -261,3 +261,22 @@ export const editUserPicture = (data) => fetch(`https://api.react-learning.ru/v2
     .then((data)=> {
         return data;
     })
+// Метод редактирования аватара пользователя
+export const deleteUserProduct = ({token, productID}) => fetch(`https://api.react-learning.ru/products/${productID}`,{
+        method: 'DELETE',
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        authorization: `Bearer ${token}`
+        },
+    })
+    .then((res)=> {
+        if(res.status !== 200){
+            return res.json().then((data) => {
+                throw new Error(data.message)
+            });
+        }
+        return res.json();
+    })
+    .then((data)=> {
+        return data;
+    })
