@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { getProductsByWord} from "../../API/query";
 import { UsualButton } from "../Buttons/UsualButton/UsualButton";
 import Loader from "../Loader/Loader";
-import { Product } from "../Product/Product"
 import styles from './styles.module.css'
 import {ReactComponent as NotFoundPic} from './notFound.svg'
+import { FilterBar } from "../FilterBar/FilterBar";
+import { sortData } from "../services/services";
 
 
 export const GET_PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
@@ -14,14 +15,14 @@ export const GET_PRODUCTS_QUERY_KEY ='PRODUCTS_QUERY_KEY';
 function Main(){
     const searchString = useSelector((store) => store.search);
     const token = useSelector((store) => store.user.token);
+    const sort = useSelector((store) => store.sort);
 
     const navigate = useNavigate();
 
     const {data, error, isLoading, isSuccess, isError} = useQuery({ 
         queryKey: [GET_PRODUCTS_QUERY_KEY, searchString, token], 
-        queryFn: getProductsByWord
+        queryFn: getProductsByWord,
     }); 
-
     function prepareToSignIn(){
         navigate("/sign");
     }
@@ -34,21 +35,20 @@ function Main(){
         </div>
         );
     if(isSuccess) {
-        const jsx = [];
+        const preparedData = sortData(data,sort)
         if(data.length === 0) return (
             <div className={styles.notFound}>
                 <NotFoundPic />
                 <p>The product did not found...</p>
             </div>
-
         )
-        for (let elem of data){
-            jsx.push(<Product params = {elem} />)
-        }
-        return (
-                <main className={styles.container}>
-                    {jsx}
+        else return (
+        <div className={styles.container}>
+            <FilterBar />
+            <main className={styles.mainContainer}>
+                {preparedData}
                 </main>
+        </div>
         );
     }
 }

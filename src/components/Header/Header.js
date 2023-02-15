@@ -8,8 +8,6 @@ import styles from "./styles.module.css"
 function Header (){
     const navigate = useNavigate();
     const token = useSelector((store) => store.user.token);
-
-    
     // Проверка на наличие токена и выполнение отображения компонента с товарами
     const isToken = () =>{
         if (token){

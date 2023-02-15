@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { getInitialState } from "../initialStore"
 
 
 const searchSlice = createSlice({
     name: 'search',
-    initialState: "",
+    initialState: getInitialState().search,
     reducers: {
         setSearch: (state, action) => action.payload
     },

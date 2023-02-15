@@ -10,7 +10,7 @@ export function Comment({params}){
                 <p>Rate: {params.rating}</p>
             </div>
             <div className={styles.textContainer}>
-                <p>{params.text}</p>
+                <p>{params.text.slice(0,60)}</p>
                 <p className = {styles.date}>{`${date}`}</p>
             </div>
         </div>
